@@ -1,11 +1,10 @@
 import {List} from '@mui/material';
+
 import MapListItem from './MapList/MapListItem'
 
 const MapList=({
   title="一覧",
   mapData,
-  updateMapData,
-  archiveMapData
 })=>{
     return (
     <>
@@ -13,7 +12,6 @@ const MapList=({
       <List
             sx={{
               width: '100%',
-              // maxWidth: 360,
               bgcolor: 'background.paper',
               position: 'relative',
               overflow: 'auto',
@@ -21,19 +19,14 @@ const MapList=({
               height:'80%',
               '& ul': { padding: 0 },
             }}
-            subheader={<li />}
         >
-        {mapData.map((data) => (
-          <li key={data.id}>
-            <MapListItem
-                mapData={data}
-                updateMapData={updateMapData}
-                archiveMapData={archiveMapData}
-            />
-          </li>
-        ))}
-        </List>
-
+          {mapData.map((data) => (
+              <MapListItem
+                  mapData={data}
+                  key={data.id}
+              />
+          ))}
+      </List>
     </>)
 }
 

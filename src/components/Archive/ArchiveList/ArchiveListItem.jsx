@@ -1,15 +1,31 @@
-import DitailDialog from '../../Dialog/DitailDialog'
+import {useContext} from 'react'
+
 import {Divider} from '@mui/material';
 
-const ArchiveListItem=({archivedMapData})=>{
+import {RevertArchive} from "../../../App";
+
+
+import DitailDialog from '../../Dialog/DitailDialog';
+import RevertDialog from '../../Dialog/RevertDialog';
+
+const ArchiveListItem=({archivedMapData,saveDisplayMapIcons})=>{
+
+    const revertArchive=useContext(RevertArchive);
 
     return (
-        <ul>
+        <>
             <div style={{display: 'flex',justifyContent:'space-between'}}>
-                <DitailDialog  mapData={archivedMapData} />
+                <DitailDialog  mapData={archivedMapData} hideProgress />
+                <RevertDialog
+                    mapData={archivedMapData}
+                    onClickRevertButton={()=>{
+                        saveDisplayMapIcons();
+                        revertArchive(archivedMapData);
+                    }}
+                />
             </div>
             <Divider />
-        </ul>
+        </>
     )
 
 }

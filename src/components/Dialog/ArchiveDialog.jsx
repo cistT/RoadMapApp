@@ -5,8 +5,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Button,IconButton,Tooltip} from '@mui/material';
-import ArchiveIcon from '@mui/icons-material/Archive';
+import {Button} from '@mui/material';
+
+
+import ArchiveButton from '../Button/ArchiveButton';
+
 
 const ArchiveDialog=({mapData,archiveMapData})=>{
 
@@ -20,20 +23,20 @@ const ArchiveDialog=({mapData,archiveMapData})=>{
       setOpen(false);
     };
 
+    const decisionArchiveMapData = ()=>{
+      archiveMapData(mapData);
+      handleClose();
+    }
+
     return (
       <>
-        <Tooltip title="アーカイブに移動する">
-            <IconButton onClick={handleClickOpen} style={{height:'50px',width:'50px'}}>
-                <ArchiveIcon />
-            </IconButton>
-        </Tooltip>
+        <ArchiveButton title="アーカイブに移動する" onClick={handleClickOpen}/>
 
         <Dialog open={open} onClose={handleClose}>
 
           <DialogTitle>{mapData.place}をアーカイブしますか</DialogTitle>
 
           <DialogContent  style={{display: 'flex',whiteSpace: 'pre-line'}}>
-
             <DialogContentText>
               {mapData.majorDivisions}
             </DialogContentText>
@@ -47,16 +50,17 @@ const ArchiveDialog=({mapData,archiveMapData})=>{
             </DialogContentText>
 
           </DialogContent>
+
           <DialogContent style={{display:'flex',justifyContent: 'space-around'}}>
+
             <DialogActions>
               <Button onClick={handleClose}>やめる</Button>
             </DialogActions>
+
             <DialogActions>
-              <Button onClick={()=>{
-                archiveMapData(mapData);
-                handleClose();
-              }}>する</Button>
+              <Button onClick={decisionArchiveMapData}>する</Button>
             </DialogActions>
+
           </DialogContent>
 
         </Dialog>

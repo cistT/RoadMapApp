@@ -2,15 +2,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-const NavBar=({title})=>{
+import UsageDialog from './Dialog/UsageDialog';
 
+const NavBar=({title})=>{
     return (
-    <div style={{height:"60px",width:"100vw"}}>
+    <div style={{height:"60px",width:"90vw"}}>
         <AppBar>
-            <Toolbar>
+            <Toolbar style={{display:"flex",justifyContent:"space-between"}}>
                 <Typography variant="h5">
                     {title}
                 </Typography>
+                <UsageDialog />
             </Toolbar>
         </AppBar>
     </div>

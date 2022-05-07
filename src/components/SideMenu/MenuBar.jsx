@@ -6,11 +6,20 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 
 const MunuBar=({
     menu,
-    selectMenu
+    selectMenu,
+    resetMapIcon,
+    archivedMapIcon
 })=>{
 
     const handleChange = (_, newValue) => {
         selectMenu(newValue);
+        if(newValue===0){
+            resetMapIcon();
+        }else if(newValue===1){
+            resetMapIcon();
+        }else if(newValue===2){
+            archivedMapIcon();
+        }
     };
 
     return (

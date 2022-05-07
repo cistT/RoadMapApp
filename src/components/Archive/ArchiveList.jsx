@@ -1,9 +1,14 @@
-import ArchiveListItem from './ArchiveList/ArchiveListItem'
+import {useContext} from 'react'
+
 import {List} from '@mui/material';
+
+import {SaveDisplayMapIcons} from "../../App";
+import ArchiveListItem from './ArchiveList/ArchiveListItem'
 
 const ArchiveList=({
     archivedMapData,
 })=>{
+    const saveDisplayMapIcons=useContext(SaveDisplayMapIcons);
     return (
     <>
         <List
@@ -16,12 +21,13 @@ const ArchiveList=({
                 height:'80%',
                 '& ul': { padding: 0 },
             }}
-            subheader={<li />}
         >
             {archivedMapData.map(data=>(
-                <li key={data.id}>
-                    <ArchiveListItem archivedMapData={data} />
-                </li>
+                <ArchiveListItem
+                    saveDisplayMapIcons={()=>saveDisplayMapIcons(archivedMapData.filter(tmpData=>data.id!==tmpData.id))}
+                    archivedMapData={data}
+                    key={data.id}
+                />
             ))}
         </List>
     </>)

@@ -1,16 +1,22 @@
 import {useState} from 'react';
 
-import SideMap from '../SideMap';
-
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {ListItem,ListItemText,Button} from '@mui/material';
+import {Button} from '@mui/material';
 
+import ProgressButtons from '../Button/ProgressButtons';
+import SideMap from '../SideMap';
 
-const DetailDialog=({mapData})=> {
+const DetailDialog=({
+  listLabel,
+  mapData,
+  saveProgress=()=>undefined,
+  variant,
+  hideProgress=false
+})=> {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -23,29 +29,39 @@ const DetailDialog=({mapData})=> {
 
   return (
     <>
-      <ListItem button onClick={handleClickOpen} style={{width:"80%"}}>
-        <ListItemText primary={mapData.place} />
-      </ListItem>
+      <Button
+        onClick={handleClickOpen}
+        variant={variant}
+        style={{width:"80%",textAngle:"center",color:'black'}}
+      >
+        {listLabel||mapData.place}
+      </Button>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="xl"
+      >
 
-        <DialogTitle>{mapData.place}</DialogTitle>
+        <DialogTitle>苦情個所 {mapData.place}</DialogTitle>
 
         <DialogContent style={{display: 'flex',whiteSpace: 'pre-line'}} >
             <div style={{width:'40vw'}}>
-                <DialogContentText>
-                {mapData.majorDivisions}
-              </DialogContentText>
-
               <DialogContentText>
-                {mapData.contents}
+                大区分 {mapData.majorDivisions}<br/>
+                苦情個所の詳細 {mapData.detail}<br/>
+                内容 {mapData.contents}<br/>
+                元のメッセージ<br/>
+                {mapData.message}<br/>
               </DialogContentText>
-
-              <DialogContentText>
-                {mapData.message}
-              </DialogContentText>
+              {hideProgress||(
+                <ProgressButtons
+                  saveProgress={saveProgress}
+                  mapData={mapData}
+                />
+              )}
             </div>
-          <SideMap mapData={mapData} />
+            <SideMap mapData={mapData} />
         </DialogContent>
 
         <DialogActions>

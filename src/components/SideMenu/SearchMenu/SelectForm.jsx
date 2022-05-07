@@ -12,6 +12,7 @@ const SelectForm=({
     changeSelectValue,
     defaultValue
 })=>{
+
     const [selectValue,setSelectValue]=useState(defaultValue===""?"指定なし":defaultValue);
     const handleChange = (event) => {
         setSelectValue(event.target.value);
