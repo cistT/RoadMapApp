@@ -8,7 +8,3 @@
 4. アーカイブ機能
 5. 進捗状況登録＆確認機能
 6. サイドメニューの開閉機能
-
-## アプリの URL
-
-https://roadmap-daa8f.firebaseapp.com/
