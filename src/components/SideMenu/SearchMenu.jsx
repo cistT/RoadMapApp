@@ -8,7 +8,8 @@ import SearchMenuBar from "./SearchMenuBar";
 
 const SearchMenu=({
     mapData,
-    saveDisplayMapIcons
+    saveDisplayMapIcons,
+    dbMessages
 })=>{
     const  majorDivisionsSelect=[
         "指定なし","河川","幹線道路","生活道路","それ以外",
@@ -79,12 +80,12 @@ const SearchMenu=({
         {menu===1&&(
             <>
                 <MapList
-                    title=""
                     mapData={mapData.filter((data)=>(
                         data.majorDivisions.includes(majorDivisions)&&
                         data.place.includes(place)&&
                         data.contents.includes(contents)
                     ))}
+                    dbMessages={dbMessages}
                 />
                 <Button
                     onClick={()=>setMenu(0)}

@@ -29,3 +29,7 @@ firebase.json
 
 /public
 /.firebase
+firebase.js
+setupTests.js
+reportWebVitals.js
+Test.js

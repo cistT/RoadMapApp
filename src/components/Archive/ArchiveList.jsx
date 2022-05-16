@@ -7,6 +7,7 @@ import ArchiveListItem from './ArchiveList/ArchiveListItem'
 
 const ArchiveList=({
     archivedMapData,
+    dbMessages
 })=>{
     const saveDisplayMapIcons=useContext(SaveDisplayMapIcons);
     return (
@@ -26,6 +27,7 @@ const ArchiveList=({
                 <ArchiveListItem
                     saveDisplayMapIcons={()=>saveDisplayMapIcons(archivedMapData.filter(tmpData=>data.id!==tmpData.id))}
                     archivedMapData={data}
+                    dbMessages={dbMessages.filter((message)=>message.id===data.id)}
                     key={data.id}
                 />
             ))}

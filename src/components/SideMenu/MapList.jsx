@@ -3,26 +3,25 @@ import {List} from '@mui/material';
 import MapListItem from './MapList/MapListItem'
 
 const MapList=({
-  title="一覧",
   mapData,
+  dbMessages
 })=>{
     return (
     <>
-      <div style={{fontSize: '30px'}}>{title}</div>
       <List
-            sx={{
-              width: '100%',
-              bgcolor: 'background.paper',
-              position: 'relative',
-              overflow: 'auto',
-              maxHeight: '80%',
-              height:'80%',
-              '& ul': { padding: 0 },
-            }}
+          sx={{
+            width: '100%',
+            bgcolor: 'background.paper',
+            position: 'relative',
+            overflow: 'auto',
+            maxHeight: '80%',
+            height:'80%',
+          }}
         >
           {mapData.map((data) => (
               <MapListItem
                   mapData={data}
+                  dbMessages={dbMessages.filter((message) =>message.id === data.id)}
                   key={data.id}
               />
           ))}

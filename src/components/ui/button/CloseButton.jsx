@@ -5,7 +5,7 @@ const CloseButton=({title="閉じる",onClick})=>{
 
     return (
         <Tooltip title={title}>
-            <IconButton onClick={onClick} >
+            <IconButton onClick={onClick}>
                 <KeyboardDoubleArrowLeftIcon />
             </IconButton>
         </Tooltip>

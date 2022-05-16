@@ -1,71 +1,59 @@
-import {useState} from 'react';
+import { useState } from "react";
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import {Button} from '@mui/material';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Button } from "@mui/material";
 
+import ArchiveButton from "../ui/button/ArchiveButton";
 
-import ArchiveButton from '../Button/ArchiveButton';
+const ArchiveDialog = ({ mapData, archiveMapData }) => {
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-const ArchiveDialog=({mapData,archiveMapData})=>{
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const [open, setOpen] = useState(false);
+  const decisionArchiveMapData = () => {
+    archiveMapData(mapData);
+    handleClose();
+  };
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+  return (
+    <>
+      <ArchiveButton title="アーカイブに移動する" onClick={handleClickOpen} />
 
-    const handleClose = () => {
-      setOpen(false);
-    };
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{mapData.place}をアーカイブしますか</DialogTitle>
 
-    const decisionArchiveMapData = ()=>{
-      archiveMapData(mapData);
-      handleClose();
-    }
+        <DialogContent style={{ display: "flex", whiteSpace: "pre-line" }}>
+          <DialogContentText>{mapData.majorDivisions}</DialogContentText>
 
-    return (
-      <>
-        <ArchiveButton title="アーカイブに移動する" onClick={handleClickOpen}/>
+          <DialogContentText>{mapData.contents}</DialogContentText>
 
-        <Dialog open={open} onClose={handleClose}>
+          <DialogContentText>{mapData.message}</DialogContentText>
+        </DialogContent>
 
-          <DialogTitle>{mapData.place}をアーカイブしますか</DialogTitle>
+        <DialogContent
+          style={{ display: "flex", justifyContent: "space-around" }}
+        >
+          <DialogActions>
+            <Button onClick={handleClose}>やめる</Button>
+          </DialogActions>
 
-          <DialogContent  style={{display: 'flex',whiteSpace: 'pre-line'}}>
-            <DialogContentText>
-              {mapData.majorDivisions}
-            </DialogContentText>
-
-            <DialogContentText>
-              {mapData.contents}
-            </DialogContentText>
-
-            <DialogContentText>
-              {mapData.message}
-            </DialogContentText>
-
-          </DialogContent>
-
-          <DialogContent style={{display:'flex',justifyContent: 'space-around'}}>
-
-            <DialogActions>
-              <Button onClick={handleClose}>やめる</Button>
-            </DialogActions>
-
-            <DialogActions>
-              <Button onClick={decisionArchiveMapData}>する</Button>
-            </DialogActions>
-
-          </DialogContent>
-
-        </Dialog>
-      </>
-    );
-}
+          <DialogActions>
+            <Button onClick={decisionArchiveMapData}>する</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 export default ArchiveDialog;
