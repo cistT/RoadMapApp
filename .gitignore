@@ -27,7 +27,6 @@ yarn-error.log*
 .firebaserc
 firebase.json
 
-/public
 /.firebase
 firebase.js
 setupTests.js
