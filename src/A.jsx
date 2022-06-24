@@ -1,7 +1,7 @@
 import App from "./App";
 const A = () => {
     return
-     <div>
+    <div>
         <h1>Hello world</h1>
     </div>;
 };
