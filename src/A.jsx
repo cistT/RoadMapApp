@@ -1,9 +1,6 @@
 import App from "./App";
 const A = () => {
-    return
-    <div>
-        <h1>Hello world</h1>
-    </div>;
+    return <>Push Test</>;
 };
 
 export default A;
