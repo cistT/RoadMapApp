@@ -12,7 +12,6 @@ import Map from "./components/page/Map";
 //CSSはcss-in-jsで書き直したほうが良い
 //コンポーネント設計は見直したほうが良い
 
-//プロップスリレーが生じていたのでuseContextで実装した
 export const SaveProgress = createContext();
 export const SaveDisplayMapIcons = createContext();
 export const ArchiveMapData = createContext();
@@ -20,6 +19,8 @@ export const RevertArchive = createContext();
 
 //URLさえわかれば、だれでも情報の書き換えができてしまうのでログイン機能の実装が必要
 const App = () => {
+    //プロップスリレーが生じていたのでuseContextで実装した
+
     const [load, setLoad] = useState(true);
     const [mapData, setMapData] = useState([]);
 
@@ -87,12 +88,12 @@ const App = () => {
         (async () => {
             const res = await fetch(process.env.REACT_APP_SPREADSHEET_API_URL);
             const json = await res.json();
-            db.collection("messages")
-                .orderBy("time")
-                .limit(50)
-                .onSnapshot((snapshot) => {
-                    setDBMessages(snapshot.docs.map((doc) => doc.data()));
-                });
+            // // db.collection("messages")
+            // //     .orderBy("time")
+            // //     .limit(50)
+            // //     .onSnapshot((snapshot) => {
+            // //         setDBMessages(snapshot.docs.map((doc) => doc.data()));
+            // //     });
             setMapData(json);
             setLoad(false);
             setDisplayMapIcons(json);

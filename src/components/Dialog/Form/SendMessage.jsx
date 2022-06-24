@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 
 const SendMessage = ({ mapDataId }) => {
     const [message, setMessage] = useState("");
+
     const sendMessage = (e) => {
         e.preventDefault();
         if (message === "") return;
