@@ -1,6 +1,9 @@
 import App from "./App";
 const A = () => {
-    return <App />;
+    return
+     <div>
+        <h1>Hello world</h1>
+    </div>;
 };
 
 export default A;
