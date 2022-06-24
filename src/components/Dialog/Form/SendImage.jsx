@@ -6,12 +6,14 @@ import { storage } from "../../../firebase";
 
 const SendImage = () => {
     const inputRef = useRef();
+
     const OnFileUploadToFirebase = (e) => {
         e.preventDefault();
 
-        const file = inputRef.current.files[0].name;
+        const file = inputRef.current.files[0];
 
-        const storageRef = ref(storage, "image/" + file);
+        const storageRef = ref(storage, "image/" + file.name);
+
         uploadBytes(storageRef, file).then(() => {});
     };
     return (
