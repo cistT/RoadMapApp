@@ -1,6 +1,7 @@
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import LoginDialog from "../../Dialog/LoginDialog";
 
 import UsageDialog from "../../Dialog/UsageDialog";
 
@@ -12,7 +13,10 @@ const NavBar = ({ title }) => {
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
                     <Typography variant="h5">{title}</Typography>
-                    <UsageDialog />
+                    <div>
+                        <UsageDialog />
+                        <LoginDialog />
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
