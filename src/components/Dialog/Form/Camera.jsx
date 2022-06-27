@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import React, { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
+import IconButton from "@mui/material/IconButton";
+import { PhotoCamera } from "@material-ui/icons";
 
 const Camera = () => {
     const webcamRef = useRef(null);
@@ -42,7 +44,9 @@ const Camera = () => {
                     <Button onClick={capture}>撮影！！！！</Button>
                 </>
             ) : (
-                <Button onClick={handleStartShooting}> 撮影する</Button>
+              <IconButton onClick={handleStartShooting}>
+                <PhotoCamera/>
+              </IconButton>
             )}
 
             {url ? (
