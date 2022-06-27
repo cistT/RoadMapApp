@@ -50,10 +50,10 @@ const DetailDialog = ({
                 <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <DialogTitle>苦情個所　{mapData.place}</DialogTitle>
+                    <DialogTitle>苦情箇所　{mapData.place}</DialogTitle>
                     <DialogActions>
                         <Button onClick={switchContents}>
-                            {contents ? "マップを見る" : "メッセージを見る"}
+                            {contents ? "メッセージを見る" : "マップを見る"}
                         </Button>
                     </DialogActions>
                 </div>
@@ -68,7 +68,7 @@ const DetailDialog = ({
                                 text={mapData.majorDivisions}
                             />
                             <TextWithTitle
-                                title="苦情個所の詳細"
+                                title="苦情箇所の詳細"
                                 text={mapData.detail}
                             />
                             <TextWithTitle
@@ -88,9 +88,9 @@ const DetailDialog = ({
                         )}
                     </div>
                     {contents ? (
-                        <Form dbMessages={dbMessages} mapDataId={mapData.id} />
+                        <SideMap mapData={mapData}  />
                     ) : (
-                        <SideMap mapData={mapData} />
+                        <Form  dbMessages={dbMessages} mapData={mapData}/>
                     )}
                 </DialogContent>
 
