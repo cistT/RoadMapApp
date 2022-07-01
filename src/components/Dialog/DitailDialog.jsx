@@ -51,16 +51,19 @@ const DetailDialog = ({
             </Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
-                <div
+                <div 
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <DialogTitle css={stylestitlespace}> {mapData.place}</DialogTitle>
+                    <DialogTitle css={stylestitlespace}> 
+                        {mapData.place}
+                    </DialogTitle>
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}
                         </Button>
                     </DialogActions>
                 </div>
+                
 
                 <DialogContent
                     style={{ display: "flex", whiteSpace: "pre-line" }}
@@ -124,6 +127,7 @@ const stylesright = css`width: 80% ;
 const stylestitlespace=css`width: 80% ;
                     padding : 30px 0 0 20px ;
                     `
+
 
 export default DetailDialog;
 
