@@ -3,16 +3,15 @@ import Typography from "@mui/material/Typography";
 
 const ProgressButtons = ({ saveProgress, mapData }) => {
     const buttons = [
-        { label: "20%", value: 20 },
-        { label: "40%", value: 40 },
-        { label: "60%", value: 60 },
-        { label: "80%", value: 80 },
-        { label: "100%", value: 100 },
+        { label: "現地確認", value:25  },
+        { label: "連絡済", value: 50 },
+        { label: "予定確認済", value:75  },
+        { label: "完了", value: 100 },
     ];
 
     return (
         <>
-            <Typography gutterBottom>進捗状況</Typography>
+            <Typography gutterBottom></Typography>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {buttons.map((button) => (
                     <Button
@@ -20,7 +19,7 @@ const ProgressButtons = ({ saveProgress, mapData }) => {
                         variant="outlined"
                         style={{
                             height: "40px",
-                            width: "60px",
+                            width: "110px",
                             margin: "5px",
                             background:
                                 mapData?.progress === button.value && "blue",

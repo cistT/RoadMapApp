@@ -50,7 +50,7 @@ const DetailDialog = ({
                 <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <DialogTitle>苦情箇所　{mapData.place}</DialogTitle>
+                    <DialogTitle> {mapData.place}</DialogTitle>
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}
@@ -68,7 +68,7 @@ const DetailDialog = ({
                                 text={mapData.majorDivisions}
                             />
                             <TextWithTitle
-                                title="苦情箇所の詳細"
+                                title="詳細"
                                 text={mapData.detail}
                             />
                             <TextWithTitle
