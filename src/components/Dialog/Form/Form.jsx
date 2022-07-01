@@ -4,7 +4,7 @@ import { List } from "@mui/material";
 import SendImage from "./SendImage";
 
 import SendMessage from "./SendMessage";
-const Form = ({ mapDataId, dbMessages }) => {
+const Form = ({ mapData, dbMessages }) => {
     return (
         <div style={{ width: "40vw" }}>
             <>
@@ -26,7 +26,7 @@ const Form = ({ mapDataId, dbMessages }) => {
                     ))}
                 </List>
             </>
-            <SendMessage mapDataId={mapDataId} />
+            <SendMessage mapDataId={mapData.id} />
             <SendImage />
         </div>
     );
