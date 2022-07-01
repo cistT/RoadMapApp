@@ -86,14 +86,14 @@ const App = () => {
         //   longitude:string,
         // }[]
         (async () => {
-            const res = await fetch(process.env.REACT_APP_SPREADSHEET_API_URL);
+            const res = await fetch('https://script.google.com/macros/s/AKfycbwRcMasbaWSvEFBTVQh-UCQ4QyjYDEtTeJwQkrxHjSFnrRGxkZxO3CCCf-D9P1pz3wb3A/exec');
             const json = await res.json();
-            // // db.collection("messages")
-            // //     .orderBy("time")
-            // //     .limit(50)
-            // //     .onSnapshot((snapshot) => {
-            // //         setDBMessages(snapshot.docs.map((doc) => doc.data()));
-            // //     });
+            db.collection("messages")
+                .orderBy("time")
+                .limit(50)
+                .onSnapshot((snapshot) => {
+                    setDBMessages(snapshot.docs.map((doc) => doc.data()));
+                });
             setMapData(json);
             setLoad(false);
             setDisplayMapIcons(json);
