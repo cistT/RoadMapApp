@@ -27,21 +27,22 @@ const SendImage = ({ mapDataId }) => {
 
         const storageRef = ref(storage, `${mapDataId}/test`);
 
-        image && uploadString(storageRef, image).then((snapshot) => {});
         image &&
-            saveImgUrl(
-                mapDataId,
-                `${process.env.REACT_APP_STORAGE_URL}/${mapDataId}/test`
-            );
+            uploadString(storageRef, image).then((snapshot) => {
+                saveImgUrl(
+                    mapDataId,
+                    `${process.env.REACT_APP_STORAGE_URL}/${mapDataId}/test`
+                );
+            });
 
         file?.name &&
             uploadBytes(ref(storage, `${mapDataId}/${file.name}`), file).then(
-                () => {}
-            );
-        file?.name &&
-            saveImgUrl(
-                mapDataId,
-                `${process.env.REACT_APP_STORAGE_URL}/${mapDataId}/${file.name}`
+                () => {
+                    saveImgUrl(
+                        mapDataId,
+                        `${process.env.REACT_APP_STORAGE_URL}/${mapDataId}/${file.name}`
+                    );
+                }
             );
     };
     return (
