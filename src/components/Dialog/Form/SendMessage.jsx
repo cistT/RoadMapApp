@@ -1,5 +1,5 @@
 import { useState } from "react";
-//import { db } from "../../../firebase.js";
+import { db } from "../../../firebase.js";
 import firebase from "firebase/compat/app";
 
 import Divider from "@mui/material/Divider";
@@ -11,16 +11,16 @@ import Paper from "@mui/material/Paper";
 const SendMessage = ({ mapDataId }) => {
     const [message, setMessage] = useState("");
 
-    // const sendMessage = (e) => {
-    //     e.preventDefault();
-    //     if (message === "") return;
-    //     db.collection("messages").add({
-    //         id: mapDataId,
-    //         message: message,
-    //         time: firebase.firestore.FieldValue.serverTimestamp(),
-    //     });
-    //     setMessage("");
-    // };
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if (message === "") return;
+        db.collection("messages").add({
+            id: mapDataId,
+            message: message,
+            time: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        setMessage("");
+    };
 
     return (
         <>
@@ -32,7 +32,7 @@ const SendMessage = ({ mapDataId }) => {
                     alignItems: "center",
                     width: "40vw",
                 }}
-                //onSubmit={sendMessage}
+                onSubmit={sendMessage}
             >
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}

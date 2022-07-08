@@ -12,6 +12,10 @@ import SideMap from "../page/SideMap";
 import Form from "./Form/Form";
 import BackButton from "../ui/button/BackButton";
 import TextWithTitle from "../ui/text/TextWithTitle";
+import LinearProgress from "@mui/material/LinearProgress";
+import { css } from "@emotion/react";
+import Box from "@mui/material/Box";
+import CalendarButton from "../ui/button/CalendarButton";
 
 const DetailDialog = ({
     listLabel,
@@ -47,16 +51,19 @@ const DetailDialog = ({
             </Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
-                <div
+                <div 
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <DialogTitle> {mapData.place}</DialogTitle>
+                    <h1 css={stylestitlespace}> 
+                        {mapData.place}
+                    </h1>
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}
                         </Button>
                     </DialogActions>
                 </div>
+                
 
                 <DialogContent
                     style={{ display: "flex", whiteSpace: "pre-line" }}
@@ -67,10 +74,7 @@ const DetailDialog = ({
                                 title="大区分"
                                 text={mapData.majorDivisions}
                             />
-                            <TextWithTitle
-                                title="詳細"
-                                text={mapData.detail}
-                            />
+                            <TextWithTitle title="詳細" text={mapData.detail} />
                             <TextWithTitle
                                 title="内容"
                                 text={mapData.contents}
@@ -86,11 +90,23 @@ const DetailDialog = ({
                                 mapData={mapData}
                             />
                         )}
+                        <Box css={stylesdown} >
+                            <LinearProgress
+                                css={stylesdown} 
+                                variant="determinate"
+                                value={mapData?.progress ?? 0}
+                            />
+                        </Box >
+                        <Box css={stylesdown} >
+                            <label css={stylesright}>予定日</label>
+                            <CalendarButton></CalendarButton>
+                            
+                            </Box>
                     </div>
                     {contents ? (
-                        <SideMap mapData={mapData}  />
+                        <SideMap mapData={mapData} />
                     ) : (
-                        <Form  dbMessages={dbMessages} mapData={mapData}/>
+                        <Form dbMessages={dbMessages} mapData={mapData} />
                     )}
                 </DialogContent>
 
@@ -101,6 +117,17 @@ const DetailDialog = ({
         </>
     );
 };
+
+
+const stylesdown = css`width: 80% ;
+                    padding : 20px 0 0 0 ;`
+                
+const stylesright = css`width: 80% ;
+                    padding : 0 20px 0 0 ;`
+const stylestitlespace=css`width: 80% ;
+                    padding : 30px 0 0 20px ;
+                    `
+
 
 export default DetailDialog;
 
