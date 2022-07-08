@@ -184,13 +184,27 @@
 // // registrationDate: "2022-05-03T08:30:29.405Z"}
 
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/page/Home";
+import SignIn from "./components/page/SignIn";
+import Error from "./components/page/Error";
+import PrivateRouter from "./components/Routing/PrivateRouter";
+import { AuthProvider } from "./components/Routing/AuthContext";
 
 const App = () => {
     return (
-        <>
-            <Home />
-        </>
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<PrivateRouter element={<Home />} />}
+                    />
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="*" element={<Error />} />
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
     );
 };
 

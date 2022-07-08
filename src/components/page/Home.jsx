@@ -118,6 +118,7 @@ const Home = () => {
                 <LoadingScreen />
             ) : (
                 <>
+                    {/* ログアウトボタンを実装する必要がある */}
                     <NavBar title="Road-Map (試作品)" />
                     <div
                         style={{
