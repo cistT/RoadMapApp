@@ -19,10 +19,10 @@ const MunuBar = ({ menu, selectMenu }) => {
                 centered
                 style={{ margin: "5px" }}
             >
-                <Tab icon={<ViewListIcon />} label="一覧" />
+                <Tab icon={<ViewListIcon />} label="未完了" />
+                <Tab icon={<ArchiveIcon />} label="完了" />
                 <Tab icon={<SearchIcon />} label="検索" />
-                <Tab icon={<ArchiveIcon />} label="アーカイブ" />
-                <Tab icon={<EventIcon />} label="イベント" />
+                
             </Tabs>
         </>
     );

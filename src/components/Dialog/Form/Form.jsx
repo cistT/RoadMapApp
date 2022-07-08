@@ -1,10 +1,30 @@
+import React, { useContext } from "react";
 import { ListItem } from "@mui/material";
 import { ListItemText } from "@mui/material";
 import { List } from "@mui/material";
+import Images from "./Images";
 import SendImage from "./SendImage";
+import { db } from "../../../firebase.js";
+import { ImageUrl } from "../../../App";
 
 import SendMessage from "./SendMessage";
-const Form = ({ mapDataId, dbMessages }) => {
+import { Suspense } from "react";
+const Form = ({ mapData, dbMessages }) => {
+    const imgUrl = useContext(ImageUrl);
+    // const [imgUrl, setImgUrl] = React.useState([]);
+    // const fetchImgUrl = () => {
+    //     db.collection("img")
+    //         // .where("mapDataId", "==", mapData.id)
+    //         .orderBy("time")
+    //         .limit(50)
+    //         .onSnapshot((snapshot) => {
+    //             setImgUrl(...snapshot.docs.map((doc) => doc.data()));
+    //         });
+    // };
+    // React.useEffect(() => {
+    //     fetchImgUrl();
+    // }, []);
+
     return (
         <div style={{ width: "40vw" }}>
             <>
@@ -26,8 +46,11 @@ const Form = ({ mapDataId, dbMessages }) => {
                     ))}
                 </List>
             </>
-            <SendMessage mapDataId={mapDataId} />
-            <SendImage />
+            <SendMessage mapDataId={mapData.id} />
+            <SendImage mapDataId={mapData.id} />
+            <Suspense fallback={<p>Loading...</p>}>
+                <Images mapDataId={mapData.id} imgUrl={imgUrl} />
+            </Suspense>
         </div>
     );
 };
