@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import NavBar from "../ui/navbar/NavBar";
 import InputForm from "../ui/form/InputForm";
@@ -10,6 +10,8 @@ const Login = () => {
     const passwordRef = useRef(null);
     const navigate = useNavigate();
 
+    const [miss, setMiss] = useState(false);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         auth.signInWithEmailAndPassword(
@@ -19,11 +21,13 @@ const Login = () => {
             (user) => {
                 console.log(user);
                 console.log(`${user.user.uid} : ログイン成功`);
+                setMiss(false);
                 navigate("/");
             },
             (err) => {
                 console.log("ログインできませんでした");
-                navigate("/signin");
+                setMiss(true);
+                setTimeout(() => setMiss(false), 2000)
             }
         );
     };
@@ -31,8 +35,8 @@ const Login = () => {
     return (
         <>
             <NavBar title="Road-Map (試作品)" />
-            <div css={login}>
-                <h2>ログイン</h2>
+            <div>
+                <h1>ログイン</h1>
                 <form onSubmit={handleSubmit}>
                     <InputForm
                         label="メールアドレス"
@@ -46,15 +50,18 @@ const Login = () => {
                     />
                     <input type="submit" />
                 </form>
+                {miss && (
+                    <p css={missMessage}>
+                        メールアドレス、またはパスワードが正しくありません
+                    </p>
+                )}
             </div>
         </>
     );
 };
 
-const login = {
-    login: css`
-        display: flex;
-    `,
-};
+const missMessage = css`
+    color: red;
+`;
 
 export default Login;
