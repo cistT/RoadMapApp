@@ -16,6 +16,7 @@ export const SaveProgress = createContext();
 export const SaveDisplayMapIcons = createContext();
 export const ArchiveMapData = createContext();
 export const RevertArchive = createContext();
+export const ImageUrl = createContext();
 
 //URLさえわかれば、だれでも情報の書き換えができてしまうのでログイン機能の実装が必要
 const App = () => {
@@ -69,6 +70,16 @@ const App = () => {
     };
 
     const [dbMessages, setDBMessages] = useState([]);
+    const [imgUrl, setImgUrl] = useState([]);
+    const fetchImgUrl = () => {
+        db.collection("img")
+            // .where("mapDataId", "==", mapData.id)
+            .orderBy("time")
+            .limit(50)
+            .onSnapshot((snapshot) => {
+                setImgUrl(snapshot.docs.map((doc) => doc.data()));
+            });
+    };
     useLayoutEffect(() => {
         //エラー処理は書こう
 
@@ -94,6 +105,7 @@ const App = () => {
                 .onSnapshot((snapshot) => {
                     setDBMessages(snapshot.docs.map((doc) => doc.data()));
                 });
+            fetchImgUrl();
             setMapData(json);
             setLoad(false);
             setDisplayMapIcons(json);
@@ -114,26 +126,30 @@ const App = () => {
                             width: "100vw",
                         }}
                     >
-                        <SaveProgress.Provider value={saveProgress}>
-                            <ArchiveMapData.Provider value={archiveMapData}>
-                                <SaveDisplayMapIcons.Provider
-                                    value={saveDisplayMapIcons}
-                                >
-                                    <RevertArchive.Provider
-                                        value={revertArchive}
+                        <ImageUrl.Provider value={imgUrl}>
+                            <SaveProgress.Provider value={saveProgress}>
+                                <ArchiveMapData.Provider value={archiveMapData}>
+                                    <SaveDisplayMapIcons.Provider
+                                        value={saveDisplayMapIcons}
                                     >
-                                        <SideMenu
-                                            mapData={mapData}
-                                            archivedMapData={archivedMapData}
-                                            saveDisplayMapIcons={
-                                                saveDisplayMapIcons
-                                            }
-                                            dbMessages={dbMessages}
-                                        />
-                                    </RevertArchive.Provider>
-                                </SaveDisplayMapIcons.Provider>
-                            </ArchiveMapData.Provider>
-                        </SaveProgress.Provider>
+                                        <RevertArchive.Provider
+                                            value={revertArchive}
+                                        >
+                                            <SideMenu
+                                                mapData={mapData}
+                                                archivedMapData={
+                                                    archivedMapData
+                                                }
+                                                saveDisplayMapIcons={
+                                                    saveDisplayMapIcons
+                                                }
+                                                dbMessages={dbMessages}
+                                            />
+                                        </RevertArchive.Provider>
+                                    </SaveDisplayMapIcons.Provider>
+                                </ArchiveMapData.Provider>
+                            </SaveProgress.Provider>
+                        </ImageUrl.Provider>
 
                         <Map
                             defaultPosition={defaultPosition}
