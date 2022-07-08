@@ -1,11 +1,10 @@
 import { useReducer, useState } from "react";
 
+import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
 
 import ProgressButtons from "../ui/button/ProgressButtons";
 import SideMap from "../page/SideMap";
@@ -36,6 +35,8 @@ const DetailDialog = ({
         true
     );
 
+    const [progressDate, setProgressDate] = useState("");
+
     return (
         <>
             <Button
@@ -48,7 +49,10 @@ const DetailDialog = ({
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
                 <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
                 >
                     <DialogTitle> {mapData.place}</DialogTitle>
                     <DialogActions>
@@ -67,10 +71,7 @@ const DetailDialog = ({
                                 title="大区分"
                                 text={mapData.majorDivisions}
                             />
-                            <TextWithTitle
-                                title="詳細"
-                                text={mapData.detail}
-                            />
+                            <TextWithTitle title="詳細" text={mapData.detail} />
                             <TextWithTitle
                                 title="内容"
                                 text={mapData.contents}
@@ -84,13 +85,17 @@ const DetailDialog = ({
                             <ProgressButtons
                                 saveProgress={saveProgress}
                                 mapData={mapData}
+                                onClick={() =>
+                                    setProgressDate(new Date().getDate())
+                                }
                             />
                         )}
+                        <div>{progressDate}</div>
                     </div>
                     {contents ? (
-                        <SideMap mapData={mapData}  />
+                        <SideMap mapData={mapData} />
                     ) : (
-                        <Form  dbMessages={dbMessages} mapData={mapData}/>
+                        <Form dbMessages={dbMessages} mapData={mapData} />
                     )}
                 </DialogContent>
 
