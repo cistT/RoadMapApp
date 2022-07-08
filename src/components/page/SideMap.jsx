@@ -18,7 +18,7 @@ const SideMap=({
         <>
             <MapContainer
                 center={[mapData.latitude, mapData.longitude]}
-                zoom={17}
+                zoom={14}
                 scrollWheelZoom
                 zoomControl={false}
                 centerUpdate

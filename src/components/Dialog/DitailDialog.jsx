@@ -54,9 +54,9 @@ const DetailDialog = ({
                 <div 
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <DialogTitle css={stylestitlespace}> 
+                    <h1 css={stylestitlespace}> 
                         {mapData.place}
-                    </DialogTitle>
+                    </h1>
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}

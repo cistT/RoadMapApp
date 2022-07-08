@@ -86,7 +86,7 @@ const App = () => {
         //   longitude:string,
         // }[]
         (async () => {
-            const res = await fetch('https://script.google.com/macros/s/AKfycbwRcMasbaWSvEFBTVQh-UCQ4QyjYDEtTeJwQkrxHjSFnrRGxkZxO3CCCf-D9P1pz3wb3A/exec');
+            const res = await fetch(process.env.REACT_APP_SPREADSHEET_API_URL);
             const json = await res.json();
             db.collection("messages")
                 .orderBy("time")
