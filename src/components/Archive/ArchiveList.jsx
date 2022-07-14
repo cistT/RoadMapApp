@@ -2,7 +2,7 @@ import {useContext} from 'react'
 
 import {List} from '@mui/material';
 
-import {SaveDisplayMapIcons} from "../../App";
+import {SaveDisplayMapIcons} from "../page/Home";
 import ArchiveListItem from './ArchiveList/ArchiveListItem'
 
 const ArchiveList=({

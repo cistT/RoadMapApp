@@ -5,7 +5,7 @@ import { List } from "@mui/material";
 import Images from "./Images";
 import SendImage from "./SendImage";
 import { db } from "../../../firebase.js";
-import { ImageUrl } from "../../../App";
+import { ImageUrl } from "../../page/Home";
 
 import SendMessage from "./SendMessage";
 import { Suspense } from "react";
