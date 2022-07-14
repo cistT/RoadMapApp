@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Divider } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 
-import { SaveProgress, ArchiveMapData } from "../../../App";
+import { SaveProgress, ArchiveMapData } from "../../page/Home";
 
 import DitailDialog from "../../Dialog/DitailDialog";
 import ArchiveDialog from "../../Dialog/ArchiveDialog";

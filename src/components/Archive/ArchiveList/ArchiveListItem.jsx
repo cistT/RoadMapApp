@@ -2,7 +2,7 @@ import {useContext} from 'react'
 
 import {Divider} from '@mui/material';
 
-import {RevertArchive} from "../../../App";
+import {RevertArchive} from "../../page/Home";
 
 import DitailDialog from '../../Dialog/DitailDialog';
 import RevertDialog from '../../Dialog/RevertDialog';
