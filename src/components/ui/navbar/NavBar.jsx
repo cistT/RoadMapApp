@@ -5,6 +5,8 @@ import LoginDialog from "../../Dialog/LoginDialog";
 
 import UsageDialog from "../../Dialog/UsageDialog";
 
+// Todo : ログアウトボタンつけよう
+
 const NavBar = ({ title }) => {
     return (
         <div style={{ height: "60px", width: "90vw" }}>
@@ -15,7 +17,7 @@ const NavBar = ({ title }) => {
                     <Typography variant="h5">{title}</Typography>
                     <div>
                         <UsageDialog />
-                        <LoginDialog />
+                        {/* <LoginDialog /> */}
                     </div>
                 </Toolbar>
             </AppBar>

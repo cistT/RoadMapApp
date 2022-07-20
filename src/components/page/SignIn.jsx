@@ -5,7 +5,7 @@ import InputForm from "../ui/form/InputForm";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 
-const Login = () => {
+const SignIn = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Login = () => {
             (err) => {
                 console.log("ログインできませんでした");
                 setMiss(true);
-                setTimeout(() => setMiss(false), 2000)
+                setTimeout(() => setMiss(false), 2000);
             }
         );
     };
@@ -36,25 +36,32 @@ const Login = () => {
         <>
             <NavBar title="Road-Map (試作品)" />
             <div>
-                <h1>ログイン</h1>
-                <form onSubmit={handleSubmit}>
-                    <InputForm
-                        label="メールアドレス"
-                        type="email"
-                        ref={emailRef}
-                    />
-                    <InputForm
-                        label="パスワード"
-                        type="password"
-                        ref={passwordRef}
-                    />
-                    <input type="submit" />
-                </form>
-                {miss && (
-                    <p css={missMessage}>
-                        メールアドレス、またはパスワードが正しくありません
-                    </p>
-                )}
+                <h1 css={center}>ログイン</h1>
+                <div css={form}>
+                    <form onSubmit={handleSubmit} css={center}>
+                        <InputForm
+                            label="メールアドレス"
+                            type="email"
+                            ref={emailRef}
+                        />
+                        <InputForm
+                            label="パスワード"
+                            type="password"
+                            ref={passwordRef}
+                        />
+                        <br />
+                        <input
+                            type="submit"
+                            css={submit}
+                            value="ログイン"
+                        />
+                        {miss && (
+                            <p css={missMessage}>
+                                メールアドレス、またはパスワードが正しくありません
+                            </p>
+                        )}
+                    </form>
+                </div>
             </div>
         </>
     );
@@ -64,4 +71,18 @@ const missMessage = css`
     color: red;
 `;
 
-export default Login;
+const form = css`
+    margin: auto;
+`;
+
+const submit = css`
+    height: 50px;
+    width: 200px;
+    margin: 20px auto;
+`;
+
+const center = css`
+    text-align: center;
+`;
+
+export default SignIn;

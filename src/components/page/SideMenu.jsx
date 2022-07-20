@@ -57,17 +57,18 @@ const SideMenu = ({
                         <MapList mapData={mapData} dbMessages={dbMessages} />
                     )}
                     {menu === 1 && (
-                        <SerchMenu
-                            mapData={mapData}
-                            saveDisplayMapIcons={saveDisplayMapIcons}
-                            dbMessages={dbMessages}
-                        />
+                        <ArchiveList
+                        archivedMapData={archivedMapData}
+                        dbMessages={dbMessages}
+                    />
+                        
                     )}
                     {menu === 2 && (
-                        <ArchiveList
-                            archivedMapData={archivedMapData}
-                            dbMessages={dbMessages}
-                        />
+                        <SerchMenu
+                        mapData={mapData}
+                        saveDisplayMapIcons={saveDisplayMapIcons}
+                        dbMessages={dbMessages}
+                    />
                     )}
                 </div>
             ) : (
