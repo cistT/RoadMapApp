@@ -27,10 +27,10 @@ const ArchiveDialog = ({ mapData, archiveMapData }) => {
 
   return (
     <>
-      <ArchiveButton title="アーカイブに移動する" onClick={handleClickOpen} />
+      <ArchiveButton title="完了にする" onClick={handleClickOpen} />
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{mapData.place}をアーカイブしますか</DialogTitle>
+        <DialogTitle>{mapData.place}を完了にしますか</DialogTitle>
 
         <DialogContent style={{ display: "flex", whiteSpace: "pre-line" }}>
           <DialogContentText>{mapData.majorDivisions}</DialogContentText>
