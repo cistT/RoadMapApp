@@ -53,6 +53,7 @@ const DetailDialog = ({
                 <div
                     style={{
                         display: "flex",
+                        height: "100px",
                         justifyContent: "space-between",
                     }}
                 >
