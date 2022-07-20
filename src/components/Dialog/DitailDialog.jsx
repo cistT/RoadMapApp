@@ -1,11 +1,10 @@
 import { useReducer, useState } from "react";
 
+import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
 
 import ProgressButtons from "../ui/button/ProgressButtons";
 import SideMap from "../page/SideMap";
@@ -51,19 +50,20 @@ const DetailDialog = ({
             </Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
-                <div 
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                <div
+                    style={{
+                        display: "flex",
+                        height: "100px",
+                        justifyContent: "space-between",
+                    }}
                 >
-                    <h1 css={stylestitlespace}> 
-                        {mapData.place}
-                    </h1>
+                    <h1 css={stylestitlespace}>{mapData.place}</h1>
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}
                         </Button>
                     </DialogActions>
                 </div>
-                
 
                 <DialogContent
                     style={{ display: "flex", whiteSpace: "pre-line" }}
@@ -90,18 +90,18 @@ const DetailDialog = ({
                                 mapData={mapData}
                             />
                         )}
-                        <Box css={stylesdown} >
+
+                        <Box css={stylesdown}>
                             <LinearProgress
-                                css={stylesdown} 
+                                css={stylesdown}
                                 variant="determinate"
                                 value={mapData?.progress ?? 0}
                             />
-                        </Box >
-                        <Box css={stylesdown} >
+                        </Box>
+                        <Box css={stylesdown}>
                             <label css={stylesright}>予定日</label>
                             <CalendarButton></CalendarButton>
-                            
-                            </Box>
+                        </Box>
                     </div>
                     {contents ? (
                         <SideMap mapData={mapData} />
@@ -118,16 +118,19 @@ const DetailDialog = ({
     );
 };
 
+const stylesdown = css`
+    width: 80%;
+    padding: 20px 0 0 0;
+`;
 
-const stylesdown = css`width: 80% ;
-                    padding : 20px 0 0 0 ;`
-                
-const stylesright = css`width: 80% ;
-                    padding : 0 20px 0 0 ;`
-const stylestitlespace=css`width: 80% ;
-                    padding : 30px 0 0 20px ;
-                    `
-
+const stylesright = css`
+    width: 80%;
+    padding: 0 20px 0 0;
+`;
+const stylestitlespace = css`
+    width: 80%;
+    padding: 30px 0 0 20px;
+`;
 
 export default DetailDialog;
 

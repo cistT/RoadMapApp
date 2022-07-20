@@ -193,18 +193,19 @@ import { AuthProvider } from "./components/Routing/AuthContext";
 
 const App = () => {
     return (
-        <AuthProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={<PrivateRouter element={<Home />} />}
-                    />
-                    <Route path="/signin" element={<SignIn />} />
-                    <Route path="*" element={<Error />} />
-                </Routes>
-            </BrowserRouter>
-        </AuthProvider>
+        // <AuthProvider>
+        //     <BrowserRouter>
+        //         <Routes>
+        //             <Route
+        //                 path="/"
+        //                 element={<PrivateRouter element={<Home />} />}
+        //             />
+        //             <Route path="/signin" element={<SignIn />} />
+        //             <Route path="*" element={<Error />} />
+        //         </Routes>
+        //     </BrowserRouter>
+        // </AuthProvider>
+        <Home />
     );
 };
 
