@@ -30,9 +30,9 @@ const SideMenu = ({
         if (i === 0) {
             resetMapIcon();
         } else if (i === 1) {
-            resetMapIcon();
-        } else if (i === 2) {
             archivedMapIcon();
+        } else if (i === 2) {
+            resetMapIcon();
         }
         setMenu(i);
     };
@@ -58,17 +58,16 @@ const SideMenu = ({
                     )}
                     {menu === 1 && (
                         <ArchiveList
-                        archivedMapData={archivedMapData}
-                        dbMessages={dbMessages}
-                    />
-                        
+                            archivedMapData={archivedMapData}
+                            dbMessages={dbMessages}
+                        />
                     )}
                     {menu === 2 && (
                         <SerchMenu
-                        mapData={mapData}
-                        saveDisplayMapIcons={saveDisplayMapIcons}
-                        dbMessages={dbMessages}
-                    />
+                            mapData={mapData}
+                            saveDisplayMapIcons={saveDisplayMapIcons}
+                            dbMessages={dbMessages}
+                        />
                     )}
                 </div>
             ) : (
