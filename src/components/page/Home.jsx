@@ -2,10 +2,10 @@ import { useState, useLayoutEffect, createContext } from "react";
 
 import { db } from "../../firebase";
 
-import LoadingScreen from "./LoadingScreen"
+import LoadingScreen from "./LoadingScreen";
 import NavBar from "../ui/navbar/NavBar";
 import SideMenu from "./SideMenu";
-import Map from "./Map"; 
+import Map from "./Map";
 
 //全体のソースコード
 //変数名は適宜変えよう
@@ -150,14 +150,13 @@ const Home = () => {
                                     </SaveDisplayMapIcons.Provider>
                                 </ArchiveMapData.Provider>
                             </SaveProgress.Provider>
+                            <Map
+                                defaultPosition={defaultPosition}
+                                displayMapIcons={displayMapIcons}
+                                dbMessages={dbMessages}
+                                saveProgress={saveProgress}
+                            />
                         </ImageUrl.Provider>
-
-                        <Map
-                            defaultPosition={defaultPosition}
-                            displayMapIcons={displayMapIcons}
-                            dbMessages={dbMessages}
-                            saveProgress={saveProgress}
-                        />
                     </div>
                 </>
             )}

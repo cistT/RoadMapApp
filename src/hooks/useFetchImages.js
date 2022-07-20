@@ -1,5 +1,6 @@
 import React from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
 const useFetchImages = (url, mapDataId) => {
     const [imgs, setImgs] = React.useState([]);
     const storage = getStorage();
@@ -13,7 +14,7 @@ const useFetchImages = (url, mapDataId) => {
         ]);
     };
     React.useEffect(() => {
-        url.filter((image) => image.mapDataId === mapDataId).forEach((image) =>
+        url?.filter((image) => image.mapDataId === mapDataId).forEach((image) =>
             fetchImage(image)
         );
     }, [url]);
