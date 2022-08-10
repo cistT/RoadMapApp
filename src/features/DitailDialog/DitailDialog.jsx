@@ -1,0 +1,134 @@
+import { useReducer } from "react";
+
+import { css } from "@emotion/react";
+
+import { Button } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box";
+
+import ProgressButtons from "../../components/Button/ProgressButtons";
+import SideMap from "./components/SideMap";
+import SideMessage from "./components/SideMessage";
+import BackButton from "../../components/Button/BackButton";
+import TextWithTitle from "./components/Text/TextWithTitle";
+import CalendarButton from "../../components/Button/CalendarButton";
+
+import useDialog from "hooks/useDialog";
+
+const DetailDialog = ({
+    listLabel,
+    mapData,
+    dbMessages,
+    saveProgress = () => undefined,
+    variant,
+    hideProgress = false,
+}) => {
+    const { open, handleOpen, handleClose } = useDialog(false);
+
+    const [contents, switchContents] = useReducer(
+        (contents) => !contents,
+        true
+    );
+
+    return (
+        <>
+            <Button
+                onClick={handleOpen}
+                variant={variant}
+                style={{ width: "100%", textAngle: "center", color: "black" }}
+            >
+                {listLabel || mapData.place}
+            </Button>
+
+            <Dialog open={open} onClose={handleClose} maxWidth="xl">
+                <div
+                    style={{
+                        display: "flex",
+                        height: "100px",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <h1 css={stylestitlespace}>{mapData.place}</h1>
+                    <DialogActions>
+                        <Button onClick={switchContents}>
+                            {contents ? "メッセージを見る" : "マップを見る"}
+                        </Button>
+                    </DialogActions>
+                </div>
+
+                <DialogContent
+                    style={{ display: "flex", whiteSpace: "pre-line" }}
+                >
+                    <div style={{ width: "50vw" }}>
+                        <>
+                            <TextWithTitle
+                                title="大区分"
+                                text={mapData.majorDivisions}
+                            />
+                            <TextWithTitle title="詳細" text={mapData.detail} />
+                            <TextWithTitle
+                                title="内容"
+                                text={mapData.contents}
+                            />
+                            <TextWithTitle
+                                title="市民からのメッセージ"
+                                text={mapData.message}
+                            />
+                        </>
+                        {hideProgress || (
+                            <ProgressButtons
+                                saveProgress={saveProgress}
+                                mapData={mapData}
+                            />
+                        )}
+
+                        <Box css={stylesdown}>
+                            <LinearProgress
+                                css={stylesdown}
+                                variant="determinate"
+                                value={mapData?.progress ?? 0}
+                            />
+                        </Box>
+                        <Box css={stylesdown}>
+                            <label css={stylesright}>予定日</label>
+                            <CalendarButton></CalendarButton>
+                        </Box>
+                    </div>
+                    {contents ? (
+                        <SideMap mapData={mapData} />
+                    ) : (
+                        <SideMessage
+                            dbMessages={dbMessages}
+                            mapData={mapData}
+                        />
+                    )}
+                </DialogContent>
+
+                <DialogActions>
+                    <BackButton onClick={handleClose} />
+                </DialogActions>
+            </Dialog>
+        </>
+    );
+};
+
+const stylesdown = css`
+    width: 80%;
+    padding: 20px 0 0 0;
+`;
+
+const stylesright = css`
+    width: 80%;
+    padding: 0 20px 0 0;
+`;
+const stylestitlespace = css`
+    width: 80%;
+    padding: 30px 0 0 20px;
+`;
+
+export default DetailDialog;
+
+//https://mui.com/material-ui/react-dialog/
