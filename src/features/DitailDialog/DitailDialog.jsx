@@ -52,6 +52,12 @@ const DetailDialog = ({
                     }}
                 >
                     <h1 css={stylestitlespace}>{mapData.place}</h1>
+                    <div css={stylesrespondentspace}>
+                        <div css={stylesrepondenttitle}>受付日:&nbsp;</div>{mapData.Date || "不明"}
+                        <div css={stylesrepondenttitle}>&nbsp;&nbsp;情報提供者:&nbsp;</div>{mapData.respondent_name || "不明"}
+                        <div css={stylesrepondenttitle}>&nbsp;&nbsp;連絡先:&nbsp;</div>{mapData.respondent_phone_number || "不明"}
+                    </div>
+
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}
@@ -125,9 +131,22 @@ const stylesright = css`
     padding: 0 20px 0 0;
 `;
 const stylestitlespace = css`
-    width: 80%;
+    width: 40%;
     padding: 30px 0 0 20px;
 `;
+
+const stylesrespondentspace = css`
+    padding:37px 0 0 0;
+    font-style: italic;
+    width: 700px;
+    justify-content: flex-end;
+    font-size: 20px;
+    display: flex;
+`;
+
+const stylesrepondenttitle = css`
+    font-weight: bold;
+`
 
 export default DetailDialog;
 
