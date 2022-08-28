@@ -52,6 +52,29 @@ const DetailDialog = ({
                     }}
                 >
                     <h1 css={stylestitlespace}>{mapData.place}</h1>
+                    {/* <>担当者: 白石</> */}
+
+                    <div css={stylesrespondentspace}>
+                        <div css={stylesrepodentcolumn}>
+                            <div css={stylesrepondenttitle}>受付日:&nbsp;</div>
+                            {mapData.Date || "不明"}
+                            <div css={stylesrepondenttitle}>
+                                &nbsp;&nbsp;情報提供者:&nbsp;
+                            </div>
+                            {mapData.respondent_name || "不明"}
+                            <div css={stylesrepondenttitle}>
+                                &nbsp;&nbsp;連絡先:&nbsp;
+                            </div>
+                            {mapData.respondent_phone_number || "不明"}
+                        </div>
+                        <div css={stylesrepodentcolumn}>
+                            <div css={stylesrepondenttitle}>
+                                &nbsp;&nbsp;住所:&nbsp;
+                            </div>
+                            {mapData.respondent_address || "不明"}
+                        </div>
+                    </div>
+
                     <DialogActions>
                         <Button onClick={switchContents}>
                             {contents ? "メッセージを見る" : "マップを見る"}
@@ -64,6 +87,7 @@ const DetailDialog = ({
                 >
                     <div style={{ width: "50vw" }}>
                         <>
+                            <> {mapData.address}</>
                             <TextWithTitle
                                 title="大区分"
                                 text={mapData.majorDivisions}
@@ -125,8 +149,25 @@ const stylesright = css`
     padding: 0 20px 0 0;
 `;
 const stylestitlespace = css`
-    width: 80%;
+    width: 40%;
     padding: 30px 0 0 20px;
+`;
+
+const stylesrespondentspace = css`
+    padding: 37px 0 0 0;
+    font-style: italic;
+    width: 700px;
+    justify-content: flex-end;
+    font-size: 20px;
+`;
+
+const stylesrepondenttitle = css`
+    font-weight: bold;
+`;
+
+const stylesrepodentcolumn = css`
+    display: flex;
+    justify-content: flex-end;
 `;
 
 export default DetailDialog;
