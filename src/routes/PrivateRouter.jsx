@@ -5,7 +5,7 @@ import { useAuthContext } from "./AuthContext";
 const PrivateRouter = ({ element }) => {
     const user = useAuthContext();
 
-    return user ? <>{ element }</> : <Navigate to="/signin" />;
+    return user ? <>{element}</> : <Navigate to="/signin" />;
 };
 
 export default PrivateRouter;
