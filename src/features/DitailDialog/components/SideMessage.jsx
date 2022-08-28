@@ -30,7 +30,9 @@ const SideMessage = ({ mapData, dbMessages }) => {
                     <div css={style}>
                         {dbMessages.map((message, i) => (
                             <ListItem key={i}>
+                                <div css={stylesname}>松山:&nbsp;</div>
                                 <ListItemText primary={message.message} />
+                                <div>&nbsp;8/28&nbsp;8:00 </div>
                             </ListItem>
                         ))}
                     </div>
@@ -64,5 +66,9 @@ const style1 = css`
     display: flex;
     width: 100%;
 `;
+
+const stylesname = css`
+    font-weight: bold;
+`
 
 //https://mui.com/material-ui/react-text-fiel
