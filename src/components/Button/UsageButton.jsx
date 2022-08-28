@@ -3,7 +3,7 @@ import React from "react";
 
 const UsageButton = ({ onClick }) => {
     return (
-        <Button onClick={onClick} style={{ width: "60px", color: "white" }}>
+        <Button onClick={onClick} style={{ color: "white" }}>
             使い方
         </Button>
     );

@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import { auth } from "../config/firebase";
+
 import { css } from "@emotion/react";
+
 import Header from "../components/Header/Header";
 import InputForm from "../components/Form/InputForm";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
 
 const SignIn = () => {
     const emailRef = useRef(null);
@@ -19,13 +23,10 @@ const SignIn = () => {
             passwordRef.current.value
         ).then(
             (user) => {
-                console.log(user);
-                console.log(`${user.user.uid} : ログイン成功`);
                 setMiss(false);
                 navigate("/");
             },
             (err) => {
-                console.log("ログインできませんでした");
                 setMiss(true);
                 setTimeout(() => setMiss(false), 2000);
             }
