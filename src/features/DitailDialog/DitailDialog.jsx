@@ -52,8 +52,10 @@ const DetailDialog = ({
                     }}
                 >
                     <h1 css={stylestitlespace}>{mapData.place}</h1>
+                    {/* <>担当者: 白石</> */}
+
                     <div css={stylesrespondentspace}>
-                        <div css={test}>
+                        <div css={stylesrepodentcolumn}>
                             <div css={stylesrepondenttitle}>受付日:&nbsp;</div>
                             {mapData.Date || "不明"}
                             <div css={stylesrepondenttitle}>
@@ -65,7 +67,7 @@ const DetailDialog = ({
                             </div>
                             {mapData.respondent_phone_number || "不明"}
                         </div>
-                        <div css={test}>
+                        <div css={stylesrepodentcolumn}>
                             <div css={stylesrepondenttitle}>
                                 &nbsp;&nbsp;住所:&nbsp;
                             </div>
@@ -85,6 +87,7 @@ const DetailDialog = ({
                 >
                     <div style={{ width: "50vw" }}>
                         <>
+                            <> {mapData.address}</>
                             <TextWithTitle
                                 title="大区分"
                                 text={mapData.majorDivisions}
@@ -162,7 +165,7 @@ const stylesrepondenttitle = css`
     font-weight: bold;
 `;
 
-const test = css`
+const stylesrepodentcolumn = css`
     display: flex;
     justify-content: flex-end;
 `;
