@@ -53,9 +53,24 @@ const DetailDialog = ({
                 >
                     <h1 css={stylestitlespace}>{mapData.place}</h1>
                     <div css={stylesrespondentspace}>
-                        <div css={stylesrepondenttitle}>受付日:&nbsp;</div>{mapData.Date || "不明"}
-                        <div css={stylesrepondenttitle}>&nbsp;&nbsp;情報提供者:&nbsp;</div>{mapData.respondent_name || "不明"}
-                        <div css={stylesrepondenttitle}>&nbsp;&nbsp;連絡先:&nbsp;</div>{mapData.respondent_phone_number || "不明"}
+                        <div css={test}>
+                            <div css={stylesrepondenttitle}>受付日:&nbsp;</div>
+                            {mapData.Date || "不明"}
+                            <div css={stylesrepondenttitle}>
+                                &nbsp;&nbsp;情報提供者:&nbsp;
+                            </div>
+                            {mapData.respondent_name || "不明"}
+                            <div css={stylesrepondenttitle}>
+                                &nbsp;&nbsp;連絡先:&nbsp;
+                            </div>
+                            {mapData.respondent_phone_number || "不明"}
+                        </div>
+                        <div css={test}>
+                            <div css={stylesrepondenttitle}>
+                                &nbsp;&nbsp;住所:&nbsp;
+                            </div>
+                            {mapData.respondent_address || "不明"}
+                        </div>
                     </div>
 
                     <DialogActions>
@@ -136,17 +151,21 @@ const stylestitlespace = css`
 `;
 
 const stylesrespondentspace = css`
-    padding:37px 0 0 0;
+    padding: 37px 0 0 0;
     font-style: italic;
     width: 700px;
     justify-content: flex-end;
     font-size: 20px;
-    display: flex;
 `;
 
 const stylesrepondenttitle = css`
     font-weight: bold;
-`
+`;
+
+const test = css`
+    display: flex;
+    justify-content: flex-end;
+`;
 
 export default DetailDialog;
 
