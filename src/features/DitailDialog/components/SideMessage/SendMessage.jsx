@@ -11,18 +11,22 @@ import Divider from "@mui/material/Divider";
 import { Tooltip } from "@material-ui/core";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
+import { useAuthContext } from "routes/AuthContext.jsx";
 
 const SendMessage = ({ mapDataId }) => {
     const [message, setMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(" ");
+
+    const user = useAuthContext();
 
     const sendMessage = (e) => {
         e.preventDefault();
         if (message === "") return;
         db.collection("messages").add({
             id: mapDataId,
+            manager: user?.displayName ?? "不明",
             message: message,
-            time: firebase.firestore.FieldValue.serverTimestamp(),
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
         setMessage("");
         setSuccessMessage("送信成功しました");
