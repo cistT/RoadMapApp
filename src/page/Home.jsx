@@ -101,7 +101,7 @@ const Home = () => {
             const res = await fetch(process.env.REACT_APP_SPREADSHEET_API_URL);
             const json = await res.json();
             db.collection("messages")
-                .orderBy("time")
+                .orderBy("timestamp")
                 .limit(50)
                 .onSnapshot((snapshot) => {
                     setDBMessages(snapshot.docs.map((doc) => doc.data()));
