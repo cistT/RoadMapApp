@@ -12,6 +12,7 @@ import SendImage from "./SideMessage/SendImage";
 import GroupOrientation from "../../../components/Button/GroupOrientation";
 
 import useFetchImages from "../../../hooks/useFetchImages";
+import dateToString from "utils/dateToString";
 
 //ToDo コンポーネントの名前を変える
 const SideMessage = ({ mapData, dbMessages }) => {
@@ -20,19 +21,23 @@ const SideMessage = ({ mapData, dbMessages }) => {
     const [menu, setMenu] = useState(0);
     const selectMenu = (i) => setMenu(i);
 
-    const [imgs, setImgs] = useFetchImages(imgUrl, mapData.id);
+    const [imgs, _] = useFetchImages(imgUrl, mapData.id);
 
     return (
-        <div style={{ width: "50vw" }}>
-            <div css={style1}>
+        <div css={styles.container}>
+            <div css={styles.sendBox}>
                 <GroupOrientation menu={menu} selectMenu={selectMenu} />
                 {menu === 0 && (
-                    <div css={style}>
+                    <div css={styles.messageList}>
                         {dbMessages.map((message, i) => (
-                            <ListItem key={i}>
-                                <div css={stylesname}>松山:&nbsp;</div>
+                            <ListItem key={i} css={styles.listItem}>
+                                <div>{message?.manager ?? "不明"}</div>
                                 <ListItemText primary={message.message} />
-                                <div>&nbsp;8/28&nbsp;8:00 </div>
+                                <div>
+                                    {dateToString(
+                                        message?.timestamp?.toDate()
+                                    ) ?? "不明"}
+                                </div>
                             </ListItem>
                         ))}
                     </div>
@@ -53,22 +58,26 @@ const SideMessage = ({ mapData, dbMessages }) => {
 };
 export default SideMessage;
 
-const style = css`
-    width: 80%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    max-height: 400px;
-    height: 400px;
-    border: 1px solid;
-`;
-
-const style1 = css`
-    display: flex;
-    width: 100%;
-`;
-
-const stylesname = css`
-    font-weight: bold;
-`
+const styles = {
+    container: css`
+        width: 50vw;
+    `,
+    sendBox: css`
+        display: flex;
+        width: 100%;
+    `,
+    messageList: css`
+        width: 80%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 400px;
+        height: 400px;
+        border: 1px solid;
+    `,
+    listItem: css`
+        display: flex;
+        gap: 20px;
+    `,
+};
 
 //https://mui.com/material-ui/react-text-fiel
