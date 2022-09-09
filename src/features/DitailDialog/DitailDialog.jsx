@@ -57,7 +57,7 @@ const DetailDialog = ({
                     <div css={stylesrespondentspace}>
                         <div css={stylesrepodentcolumn}>
                             <div css={stylesrepondenttitle}>受付日:&nbsp;</div>
-                            {mapData.Date || "不明"}
+                            {mapData.timestamp || "不明"}
                             <div css={stylesrepondenttitle}>
                                 &nbsp;&nbsp;情報提供者:&nbsp;
                             </div>
