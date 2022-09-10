@@ -17,6 +17,7 @@ import TextWithTitle from "./components/Text/TextWithTitle";
 import CalendarButton from "../../components/Button/CalendarButton";
 
 import useDialog from "hooks/useDialog";
+import Remarks from "./components/Remarks";
 
 const DetailDialog = ({
     listLabel,
@@ -100,15 +101,12 @@ const DetailDialog = ({
                                 title="大区分"
                                 text={mapData.majorDivisions}
                             />
-                            <TextWithTitle title="詳細" text={mapData.detail} />
-                            <TextWithTitle
-                                title="内容"
-                                text={mapData.contents}
-                            />
                             <TextWithTitle
                                 title="市民からのメッセージ"
-                                text={mapData.message}
+                                text={mapData.remarks}
                             />
+                            {/* ここのvalueにgasから取得した備考欄の値を渡す */}
+                            <Remarks value="かなり深い水溜りなので、なるべく早急に対処したいです"/>
                         </>
                         {hideProgress || (
                             <ProgressButtons
@@ -158,15 +156,15 @@ const stylesright = css`
 `;
 const stylestitlespace = css`
     width: 40%;
-    padding: 30px 0 0 20px;
+    margin: 30px 0 0 20px;
 `;
 
 const stylesrespondentspace = css`
     padding: 37px 0 0 0;
     font-style: italic;
-    width: 700px;
+    width: 750px;
     justify-content: flex-end;
-    font-size: 20px;
+    font-size: 17px;
 `;
 
 const stylesrepondenttitle = css`
