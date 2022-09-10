@@ -95,6 +95,7 @@ const DetailDialog = ({
                                     {mapData.Tantousha || "白石"}
                                 </span>
                             </div>
+                            <hr css={stylesborder} />
                             <TextWithTitle
                                 title="大区分"
                                 text={mapData.majorDivisions}
@@ -182,6 +183,15 @@ const stylesaddressandperson = css`
     display: flex;
     justify-content: space-between;
     font-size: 20px;
+`;
+
+const stylesborder = css`
+    height: 2px;
+    width: 80%;
+    text-align: left;
+    margin-left: 0px;
+    background: black;
+    border: none;
 `;
 
 export default DetailDialog;
