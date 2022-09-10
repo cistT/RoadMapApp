@@ -61,6 +61,9 @@ const Home = () => {
                 return data;
             })
         );
+
+        // ここに進捗のパーセンテージをgasに入力する処理を追加すればいい？
+        console.log("id: " + mapDataId + " %: " + progress);
     };
 
     const revertArchive = (revertMapData) => {
@@ -84,6 +87,7 @@ const Home = () => {
     useLayoutEffect(() => {
         //エラー処理は書こう
 
+        // todo データ形式の更新（新しいものに書き換え）
         //データの形式
         //json
         // {
@@ -119,7 +123,6 @@ const Home = () => {
                 <LoadingScreen />
             ) : (
                 <>
-                    {/* ログアウトボタンを実装する必要がある */}
                     <Header title="Road-Map (試作品)" />
                     <div
                         style={{

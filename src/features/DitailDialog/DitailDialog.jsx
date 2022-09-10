@@ -18,8 +18,8 @@ import CalendarButton from "../../components/Button/CalendarButton";
 
 import useDialog from "hooks/useDialog";
 import Remarks from "./components/Remarks";
-import NotCompliedProgressButtons from "components/Button/NotCompliedProgressButton";
-import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
+import NotCompliedProgressButton from "components/Button/NotCompliedProgressButton";
+// import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
 
 const DetailDialog = ({
     listLabel,
@@ -131,7 +131,8 @@ const DetailDialog = ({
                         />
                         <Box css={stylesdown}>
                             <label css={stylesright}>予定日</label>
-                            <CalendarButton></CalendarButton>
+                            {/* ここでgasから取得した値を渡してあげればいい？ */}
+                            <CalendarButton />
                         </Box>
                     </div>
                     {contents ? (
