@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { Button, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
-import SaveAsIcon from '@mui/icons-material/SaveAs';
+import SaveAsIcon from "@mui/icons-material/SaveAs";
 
 const Remarks = ({ value }) => {
     const [remarksValue, setRemarksValue] = useState("");
@@ -31,6 +31,7 @@ const Remarks = ({ value }) => {
         <>
             <TextField
                 name="remarks"
+                label="備考欄"
                 css={styles.remarks}
                 placeholder={"備考があれば入力してください"}
                 value={remarksValue}
@@ -44,7 +45,7 @@ const Remarks = ({ value }) => {
                 variant="contained"
                 onClick={handleSubmit}
                 css={styles.button}
-                endIcon={<SaveAsIcon/>}
+                endIcon={<SaveAsIcon />}
             >
                 保存
             </Button>
@@ -67,8 +68,8 @@ const styles = {
         margin-top: 2px;
     `,
     remarks: css`
-      width: 36vw;
-      margin-top: 5px;
+        width: 36vw;
+        margin-top: 5px;
     `,
     message: css`
         text-align: right;
