@@ -18,6 +18,8 @@ import CalendarButton from "../../components/Button/CalendarButton";
 
 import useDialog from "hooks/useDialog";
 import Remarks from "./components/Remarks";
+import NotCompliedProgressButtons from "components/Button/NotCompliedProgressButton";
+import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
 
 const DetailDialog = ({
     listLabel,
@@ -106,7 +108,7 @@ const DetailDialog = ({
                                 text={mapData.remarks}
                             />
                             {/* ここのvalueにgasから取得した備考欄の値を渡す */}
-                            <Remarks value="かなり深い水溜りなので、なるべく早急に対処したいです"/>
+                            <Remarks value="かなり深い水溜りなので、なるべく早急に対処したいです" />
                         </>
                         {hideProgress || (
                             <ProgressButtons
@@ -122,6 +124,11 @@ const DetailDialog = ({
                                 value={mapData?.progress ?? 0}
                             />
                         </Box>
+                        <NotCompliedProgressButton
+                            saveProgress={saveProgress}
+                            mapData={mapData}
+                            css={style.notComplied}
+                        />
                         <Box css={stylesdown}>
                             <label css={stylesright}>予定日</label>
                             <CalendarButton></CalendarButton>
@@ -147,7 +154,7 @@ const DetailDialog = ({
 
 const stylesdown = css`
     width: 80%;
-    padding: 20px 0 0 0;
+    padding: 10px 0 0 0;
 `;
 
 const stylesright = css`
@@ -191,6 +198,12 @@ const stylesborder = css`
     background: black;
     border: none;
 `;
+
+const style = {
+    notComplied:  css`
+        border: 1px solid red;
+    `
+}
 
 export default DetailDialog;
 
