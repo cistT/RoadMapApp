@@ -123,7 +123,7 @@ const Home = () => {
                 <LoadingScreen />
             ) : (
                 <>
-                    <Header title="Road-Map (試作品)" />
+                    <Header title="Road-Repair-Support-System" />
                     <div
                         style={{
                             display: "flex",
