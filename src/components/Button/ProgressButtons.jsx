@@ -1,12 +1,14 @@
+import { NotificationsOffOutlined } from "@material-ui/icons";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
+import { css } from "@emotion/react";
+
 const ProgressButtons = ({ saveProgress, mapData }) => {
     const buttons = [
-        { label: "現地確認", value:25  },
-        { label: "連絡済", value: 50 },
-        { label: "予定確認済", value:75  },
-        { label: "完了", value: 100 },
+        { label: "現地確認", value: 33 },
+        { label: "指示", value: 66 },
+        { label: "実施済み", value: 100 },
     ];
 
     return (
@@ -17,17 +19,7 @@ const ProgressButtons = ({ saveProgress, mapData }) => {
                     <Button
                         onClick={() => saveProgress(mapData.id, button.value)}
                         variant="outlined"
-                        style={{
-                            height: "40px",
-                            width: "110px",
-                            margin: "5px",
-                            background:
-                                mapData?.progress === button.value && "blue",
-                            color:
-                                mapData?.progress === button.value
-                                    ? "white"
-                                    : "blue",
-                        }}
+                        css={(mapData?.progress === button.value) ? styles.blueButton : styles.whiteButton}
                         key={button.label}
                     >
                         {button.label}
@@ -36,6 +28,22 @@ const ProgressButtons = ({ saveProgress, mapData }) => {
             </div>
         </>
     );
+};
+
+const styles = {
+    blueButton: css`
+        height: 30px;
+        width: 110px;
+        margin: 5px;
+        background: blue;
+        color: white;
+    `,
+    whiteButton: css`
+        height: 30px;
+        width: 110px;
+        margin: 5px;
+        color: blue;
+    `,
 };
 
 export default ProgressButtons;

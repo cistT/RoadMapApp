@@ -16,7 +16,7 @@ const TextWithTitle = ({ title, text = "" }) => {
 const styleflame = css`
     width: 35vw;
     border: 0.5px dashed black;
-    margin: 10px;
+    margin: 10px 10px 10px 0px;
     padding: 5px;
 `;
 const styletitle = css`

@@ -17,6 +17,9 @@ import TextWithTitle from "./components/Text/TextWithTitle";
 import CalendarButton from "../../components/Button/CalendarButton";
 
 import useDialog from "hooks/useDialog";
+import Remarks from "./components/Remarks";
+import NotCompliedProgressButton from "components/Button/NotCompliedProgressButton";
+// import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
 
 const DetailDialog = ({
     listLabel,
@@ -52,12 +55,11 @@ const DetailDialog = ({
                     }}
                 >
                     <h1 css={stylestitlespace}>{mapData.place}</h1>
-                    {/* <>担当者: 白石</> */}
 
                     <div css={stylesrespondentspace}>
                         <div css={stylesrepodentcolumn}>
                             <div css={stylesrepondenttitle}>受付日:&nbsp;</div>
-                            {mapData.Date || "不明"}
+                            {mapData.timestamp || "不明"}
                             <div css={stylesrepondenttitle}>
                                 &nbsp;&nbsp;情報提供者:&nbsp;
                             </div>
@@ -87,20 +89,26 @@ const DetailDialog = ({
                 >
                     <div style={{ width: "50vw" }}>
                         <>
-                            <> {mapData.address}</>
+                            <div css={stylesaddressandperson}>
+                                <>{mapData.address}</>
+                                <span>
+                                    <span css={stylesrepondenttitle}>
+                                        担当者:{" "}
+                                    </span>
+                                    {mapData.Tantousha || "白石"}
+                                </span>
+                            </div>
+                            <hr css={stylesborder} />
                             <TextWithTitle
                                 title="大区分"
                                 text={mapData.majorDivisions}
                             />
-                            <TextWithTitle title="詳細" text={mapData.detail} />
-                            <TextWithTitle
-                                title="内容"
-                                text={mapData.contents}
-                            />
                             <TextWithTitle
                                 title="市民からのメッセージ"
-                                text={mapData.message}
+                                text={mapData.remarks}
                             />
+                            {/* ここのvalueにgasから取得した備考欄の値を渡す */}
+                            <Remarks value="かなり深い水溜りなので、なるべく早急に対処したいです" />
                         </>
                         {hideProgress || (
                             <ProgressButtons
@@ -116,9 +124,15 @@ const DetailDialog = ({
                                 value={mapData?.progress ?? 0}
                             />
                         </Box>
+                        <NotCompliedProgressButton
+                            saveProgress={saveProgress}
+                            mapData={mapData}
+                            css={style.notComplied}
+                        />
                         <Box css={stylesdown}>
                             <label css={stylesright}>予定日</label>
-                            <CalendarButton></CalendarButton>
+                            {/* ここでgasから取得した値を渡してあげればいい？ */}
+                            <CalendarButton />
                         </Box>
                     </div>
                     {contents ? (
@@ -141,7 +155,7 @@ const DetailDialog = ({
 
 const stylesdown = css`
     width: 80%;
-    padding: 20px 0 0 0;
+    padding: 10px 0 0 0;
 `;
 
 const stylesright = css`
@@ -150,15 +164,15 @@ const stylesright = css`
 `;
 const stylestitlespace = css`
     width: 40%;
-    padding: 30px 0 0 20px;
+    margin: 30px 0 0 20px;
 `;
 
 const stylesrespondentspace = css`
     padding: 37px 0 0 0;
     font-style: italic;
-    width: 700px;
+    width: 750px;
     justify-content: flex-end;
-    font-size: 20px;
+    font-size: 17px;
 `;
 
 const stylesrepondenttitle = css`
@@ -169,6 +183,28 @@ const stylesrepodentcolumn = css`
     display: flex;
     justify-content: flex-end;
 `;
+
+const stylesaddressandperson = css`
+    width: 38vw;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+`;
+
+const stylesborder = css`
+    height: 2px;
+    width: 80%;
+    text-align: left;
+    margin-left: 0px;
+    background: black;
+    border: none;
+`;
+
+const style = {
+    notComplied:  css`
+        border: 1px solid red;
+    `
+}
 
 export default DetailDialog;
 
