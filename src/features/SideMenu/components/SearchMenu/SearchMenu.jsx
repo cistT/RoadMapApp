@@ -5,127 +5,73 @@ import { Button } from "@mui/material";
 import MapList from "../Incomplete/MapList";
 import SelectForm from "./SelectForm";
 import SearchMenuBar from "./SearchMenuBar";
+import { useEffect } from "react";
+
+import { TextField } from "@mui/material";
+// import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
+
+import { css } from "@emotion/react";
 
 const SearchMenu = ({ mapData, saveDisplayMapIcons, dbMessages }) => {
-    const majorDivisionsSelect = [
-        "指定なし",
-        "河川",
-        "幹線道路",
-        "生活道路",
-        "それ以外",
-    ];
-    const placeSelect = [
-        "指定なし",
-        "JR千歳駅",
-        "JR南千歳駅",
-        "JR新千歳空港",
-        "サーモンパーク",
-        "陸上自衛隊 北千歳駐屯地",
-        "航空自衛隊千歳",
-        "陸上自衛隊 東千歳駐屯地",
-        "公立千歳科学技術大学",
-    ];
-    const contentsSelect = [
-        "指定なし",
-        "マンホール・桝不良",
-        "街路樹剪定",
-        "街路樹剪定・伐採",
-        "街路灯関係",
-        "車道劣化・破損",
-        "振動(段差)",
-        "水溜り",
-        "道路施設破損",
-        "道路草刈関係",
-        "歩道劣化・破損",
-        "未舗装路線関係",
-        "路肩、法面等崩れ・破損",
-        "路面汚損・清掃",
-        "その他",
-    ];
-    const [majorDivisions, setMajorDivisions] = useState("");
-    const [place, setPlace] = useState("");
-    const [contents, setContents] = useState("");
+    const [keyword, setKeyword] = useState("");
+    const [filteredData, setFilteredData] = useState(mapData);
 
-    const [menu, setMenu] = useState(0);
-    const selectMenu = (i) => setMenu(i);
+    const handleChange = (e) => {
+        const newKeyword = e.target.value;
+        setKeyword(newKeyword);
+    };
 
-    const onClickSearchButton = () => {
-        saveDisplayMapIcons(
-            mapData.filter(
-                (data) =>
-                    data.majorDivisions.includes(majorDivisions) &&
-                    data.place.includes(place) &&
-                    data.contents.includes(contents)
+    useEffect(() => {
+        console.log("変更 : " + keyword);
+
+        const searchKeyword = keyword
+            .trim()
+            .toLowerCase()
+            .match(/[^\s]+/g);
+
+        if (keyword === "" || searchKeyword === null) {
+            setFilteredData(mapData);
+            return;
+        }
+
+        const result = mapData.filter((data) =>
+            searchKeyword.every(
+                (kw) => data.respondent_name.toLowerCase().indexOf(kw) !== -1
             )
         );
-        setMenu(1);
-    };
+        setFilteredData(result);
+    }, [keyword]);
 
     return (
         <>
-            <SearchMenuBar menu={menu} selectMenu={selectMenu} />
-            {menu === 0 && (
-                <>
-                    <SelectForm
-                        selectLavel="大区分"
-                        select={majorDivisionsSelect}
-                        changeSelectValue={setMajorDivisions}
-                        defaultValue={majorDivisions}
-                    />
-                    <SelectForm
-                        selectLavel="場所"
-                        select={placeSelect}
-                        changeSelectValue={setPlace}
-                        defaultValue={place}
-                    />
-                    <SelectForm
-                        selectLavel="内容"
-                        select={contentsSelect}
-                        changeSelectValue={setContents}
-                        defaultValue={contents}
-                    />
-                    <Button
-                        onClick={onClickSearchButton}
-                        variant="outlined"
-                        style={{
-                            height: "60px",
-                            width: "100px",
-                            float: "right",
-                            margin: "10px",
-                        }}
-                    >
-                        検索
-                    </Button>
-                </>
-            )}
-
-            {menu === 1 && (
-                <>
-                    <MapList
-                        mapData={mapData.filter(
-                            (data) =>
-                                data.majorDivisions.includes(majorDivisions) &&
-                                data.place.includes(place) &&
-                                data.contents.includes(contents)
-                        )}
-                        dbMessages={dbMessages}
-                    />
-                    <Button
-                        onClick={() => setMenu(0)}
-                        variant="outlined"
-                        style={{
-                            height: "60px",
-                            width: "100px",
-                            float: "right",
-                            margin: "10px",
-                        }}
-                    >
-                        戻る
-                    </Button>
-                </>
+            <TextField
+                id="field"
+                variant="outlined"
+                label="検索"
+                onChange={(e) => {
+                    handleChange(e);
+                }}
+                css={styles.textField}
+            />
+            {filteredData.length !== 0 ? (
+                <MapList mapData={filteredData} dbMessages={dbMessages} />
+            ) : (
+                <div css={styles.message}>該当する検索結果がありません</div>
             )}
         </>
     );
+};
+
+const styles = {
+    textField: css`
+        justify-content: center;
+        width: 90%;
+        margin: 5px 5% 0;
+    `,
+    message: css`
+        text-align: center;
+        margin-top: 10px;
+    `
 };
 
 export default SearchMenu;

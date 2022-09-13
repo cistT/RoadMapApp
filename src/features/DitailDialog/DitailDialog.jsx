@@ -19,7 +19,6 @@ import CalendarButton from "../../components/Button/CalendarButton";
 import useDialog from "hooks/useDialog";
 import Remarks from "./components/Remarks";
 import NotCompliedProgressButton from "components/Button/NotCompliedProgressButton";
-// import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
 
 const DetailDialog = ({
     listLabel,
@@ -41,9 +40,11 @@ const DetailDialog = ({
             <Button
                 onClick={handleOpen}
                 variant={variant}
-                style={{ width: "100%", textAngle: "center", color: "black" }}
+                css={styles.listItemButton}
             >
-                {listLabel || mapData.place}
+                <span>{mapData.id}</span>
+                <span>{mapData.place || "詳細地不明"}</span>
+                <span>{mapData.respondent_name || "依頼者不明"}</span>
             </Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
@@ -95,7 +96,7 @@ const DetailDialog = ({
                                     <span css={stylesrepondenttitle}>
                                         担当者:{" "}
                                     </span>
-                                    {mapData.Tantousha || "白石"}
+                                    {mapData.Tantousha || "未定"}
                                 </span>
                             </div>
                             <hr css={stylesborder} />
@@ -127,7 +128,7 @@ const DetailDialog = ({
                         <NotCompliedProgressButton
                             saveProgress={saveProgress}
                             mapData={mapData}
-                            css={style.notComplied}
+                            css={styles.notComplied}
                         />
                         <Box css={stylesdown}>
                             <label css={stylesright}>予定日</label>
@@ -200,11 +201,16 @@ const stylesborder = css`
     border: none;
 `;
 
-const style = {
-    notComplied:  css`
+const styles = {
+    notComplied: css`
         border: 1px solid red;
-    `
-}
+    `,
+    listItemButton: css`
+        width: 100%;
+        justify-content: space-between;
+        color: black;
+    `,
+};
 
 export default DetailDialog;
 
