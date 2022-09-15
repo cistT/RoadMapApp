@@ -176,7 +176,7 @@ const styles = {
     `,
     down: css`
         width: 80%;
-        padding: 10px 0 0 0;
+        padding: 9px 0 0 0;
     `,
     right: css`
         width: 80%;

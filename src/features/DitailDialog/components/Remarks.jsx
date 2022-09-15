@@ -49,7 +49,7 @@ const Remarks = ({ value }) => {
                 >
                     <SaveAsIcon />
                 </Button>
-                <div css={styles.message}>
+                <div>
                     {isChanged ? (
                         <span css={styles.saved}>保存済</span>
                     ) : (

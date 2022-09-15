@@ -54,7 +54,7 @@ export default GroupOrientation;
 
 const styles = {
     button: (bgColor = false) => css`
-        height: 200px;
+        height: 28vh;
         background-color: ${bgColor ? "rgba(221, 246, 255, 0.2)" : "white"};
     `,
 };

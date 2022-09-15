@@ -34,14 +34,14 @@ const styles = {
     blueButton: css`
         height: 30px;
         width: 110px;
-        margin: 5px;
+        margin: 5px 5px 0 5px;
         background: blue;
         color: white;
     `,
     whiteButton: css`
         height: 30px;
         width: 110px;
-        margin: 5px;
+        margin: 5px 5px 0 5px;
         color: blue;
     `,
 };

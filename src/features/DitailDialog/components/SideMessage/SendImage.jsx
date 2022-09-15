@@ -62,11 +62,7 @@ const SendImage = ({ mapDataId }) => {
         <>
             <Paper
                 component="form"
-                sx={{
-                    p: "2px 4px",
-                    marginTop: "10px",
-                    width: "40vw",
-                }}
+                css={styles.paper}
                 onSubmit={OnFileUploadToFirebase}
             >
                 <div css={styles.container}>
@@ -92,10 +88,7 @@ const SendImage = ({ mapDataId }) => {
                         )}
                     </label>
                     <div style={{ display: "flex" }}>
-                        <Divider
-                            sx={{ height: 50, m: 0.5 }}
-                            orientation="vertical"
-                        />
+                        <Divider css={styles.divider} orientation="vertical" />
                         <Tooltip title="画像を保存する">
                             <IconButton type="submit" css={styles.icon}>
                                 <SendIcon />
@@ -112,18 +105,22 @@ const SendImage = ({ mapDataId }) => {
 export default SendImage;
 
 const styles = {
+    paper: css`
+        padding: 2px 4px;
+        margin-top: 2px;
+    `,
     container: css`
         display: flex;
-        max-height: 60px;
+        height: 8vh;
+        width: 100%;
         justify-content: space-between;
     `,
     input: css`
         display: none;
     `,
     icon: css`
-        height: 50px;
-        width: 50px;
-        margin: 5px;
+        height: 45px;
+        width: 45px;
         cursor: pointer;
     `,
     message: (alpha = 1) => css`
@@ -134,5 +131,9 @@ const styles = {
     successMessage: css`
         font-size: 15px;
         margin-left: 100px;
+    `,
+    divider: css`
+        height: 40;
+        margin: 0.5;
     `,
 };
