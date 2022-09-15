@@ -60,30 +60,26 @@ const DetailDialog = ({
             )}
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
-                <div
-                    style={{
-                        display: "flex",
-                        height: "100px",
-                        justifyContent: "space-between",
-                    }}
-                >
-                    <h1 css={stylestitlespace}>{mapData.place}</h1>
+                <div css={styles.header}>
+                    <h1 css={styles.titleSpace}>{mapData.place}</h1>
 
-                    <div css={stylesrespondentspace}>
-                        <div css={stylesrepodentcolumn}>
-                            <div css={stylesrepondenttitle}>受付日:&nbsp;</div>
+                    <div css={styles.respondentSpace}>
+                        <div css={styles.respondentColumn}>
+                            <div css={styles.respondentTitle}>
+                                受付日:&nbsp;
+                            </div>
                             {mapData.timestamp || "不明"}
-                            <div css={stylesrepondenttitle}>
+                            <div css={styles.respondentTitle}>
                                 &nbsp;&nbsp;情報提供者:&nbsp;
                             </div>
                             {mapData.respondent_name || "不明"}
-                            <div css={stylesrepondenttitle}>
+                            <div css={styles.respondentTitle}>
                                 &nbsp;&nbsp;連絡先:&nbsp;
                             </div>
                             {mapData.respondent_phone_number || "不明"}
                         </div>
-                        <div css={stylesrepodentcolumn}>
-                            <div css={stylesrepondenttitle}>
+                        <div css={styles.respondentColumn}>
+                            <div css={styles.respondentTitle}>
                                 &nbsp;&nbsp;住所:&nbsp;
                             </div>
                             {mapData.respondent_address || "不明"}
@@ -91,27 +87,25 @@ const DetailDialog = ({
                     </div>
 
                     <DialogActions>
-                        <Button onClick={switchContents}>
+                        <Button onClick={switchContents} css={styles.sideContentButton}>
                             {contents ? "メッセージを見る" : "マップを見る"}
                         </Button>
                     </DialogActions>
                 </div>
 
-                <DialogContent
-                    style={{ display: "flex", whiteSpace: "pre-line" }}
-                >
-                    <div style={{ width: "50vw" }}>
+                <DialogContent css={styles.body}>
+                    <div css={styles.left}>
                         <>
-                            <div css={stylesaddressandperson}>
+                            <div css={styles.addressAndPerson}>
                                 <>{mapData.address}</>
                                 <span>
-                                    <span css={stylesrepondenttitle}>
+                                    <span css={styles.respondentTitle}>
                                         担当者:{" "}
                                     </span>
                                     {mapData.Tantousha || "未定"}
                                 </span>
                             </div>
-                            <hr css={stylesborder} />
+                            <hr css={styles.border} />
                             <TextWithTitle
                                 title="大区分"
                                 text={mapData.majorDivisions}
@@ -130,9 +124,9 @@ const DetailDialog = ({
                             />
                         )}
 
-                        <Box css={stylesdown}>
+                        <Box css={styles.down}>
                             <LinearProgress
-                                css={stylesdown}
+                                css={styles.progressBar}
                                 variant="determinate"
                                 value={mapData?.progress ?? 0}
                             />
@@ -142,8 +136,8 @@ const DetailDialog = ({
                             mapData={mapData}
                             css={styles.notComplied}
                         />
-                        <Box css={stylesdown}>
-                            <label css={stylesright}>予定日</label>
+                        <Box css={styles.down}>
+                            <label css={styles.right}>予定日</label>
                             {/* ここでgasから取得した値を渡してあげればいい？ */}
                             <CalendarButton />
                         </Box>
@@ -166,54 +160,60 @@ const DetailDialog = ({
     );
 };
 
-const stylesdown = css`
-    width: 80%;
-    padding: 10px 0 0 0;
-`;
-
-const stylesright = css`
-    width: 80%;
-    padding: 0 20px 0 0;
-`;
-const stylestitlespace = css`
-    width: 40%;
-    margin: 30px 0 0 20px;
-`;
-
-const stylesrespondentspace = css`
-    padding: 37px 0 0 0;
-    font-style: italic;
-    width: 750px;
-    justify-content: flex-end;
-    font-size: 17px;
-`;
-
-const stylesrepondenttitle = css`
-    font-weight: bold;
-`;
-
-const stylesrepodentcolumn = css`
-    display: flex;
-    justify-content: flex-end;
-`;
-
-const stylesaddressandperson = css`
-    width: 38vw;
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-`;
-
-const stylesborder = css`
-    height: 2px;
-    width: 80%;
-    text-align: left;
-    margin-left: 0px;
-    background: black;
-    border: none;
-`;
-
 const styles = {
+    header: css`
+        display: flex;
+        height: 100px;
+        justify-content: space-between;
+    `,
+    body: css`
+        display: flex;
+        white-space: pre-line;
+        padding-top: 0;
+    `,
+    left: css`
+        width: 50vw;
+    `,
+    down: css`
+        width: 80%;
+        padding: 10px 0 0 0;
+    `,
+    right: css`
+        width: 80%;
+        padding: 0 20px 0 0;
+    `,
+    titleSpace: css`
+        width: 40%;
+        margin: 30px 0 0 20px;
+    `,
+    respondentSpace: css`
+        padding: 37px 0 0 0;
+        font-style: italic;
+        width: 750px;
+        justify-content: flex-end;
+        font-size: 17px;
+    `,
+    respondentTitle: css`
+        font-weight: bold;
+    `,
+    respondentColumn: css`
+        display: flex;
+        justify-content: flex-end;
+    `,
+    addressAndPerson: css`
+        width: 38vw;
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+    `,
+    border: css`
+        height: 2px;
+        width: 45vw;
+        text-align: left;
+        margin-left: 0px;
+        background: black;
+        border: none;
+    `,
     notComplied: css`
         border: 1px solid red;
     `,
@@ -230,6 +230,13 @@ const styles = {
     buttonContainer: css`
         text-align: center;
     `,
+    progressBar: css`
+        width: 30.5vw;
+        padding: 10px 0 0 0;
+    `,
+    sideContentButton: css`
+        width: 12vw;
+    `
 };
 
 export default DetailDialog;
