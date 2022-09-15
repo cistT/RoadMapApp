@@ -37,15 +37,27 @@ const DetailDialog = ({
 
     return (
         <>
-            <Button
-                onClick={handleOpen}
-                variant={variant}
-                css={styles.listItemButton}
-            >
-                <span>{mapData.id}</span>
-                <span>{mapData.place || "詳細地不明"}</span>
-                <span>{mapData.respondent_name || "依頼者不明"}</span>
-            </Button>
+            {listLabel ? (
+                <div css={styles.buttonContainer}>
+                    <Button
+                        onClick={handleOpen}
+                        variant={variant}
+                        css={styles.mapMarkerButton}
+                    >
+                        <span>{listLabel}</span>
+                    </Button>
+                </div>
+            ) : (
+                <Button
+                    onClick={handleOpen}
+                    variant={variant}
+                    css={styles.listItemButton}
+                >
+                    <span>{mapData.id}</span>
+                    <span>{mapData.place || "詳細地不明"}</span>
+                    <span>{mapData.respondent_name || "依頼者不明"}</span>
+                </Button>
+            )}
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
                 <div
@@ -209,6 +221,14 @@ const styles = {
         width: 100%;
         justify-content: space-between;
         color: black;
+    `,
+    mapMarkerButton: css`
+        justify-content: center;
+        color: black;
+        width: 50%;
+    `,
+    buttonContainer: css`
+        text-align: center;
     `,
 };
 
