@@ -8,7 +8,7 @@ const ProgressButtons = ({ saveProgress, mapData }) => {
     const buttons = [
         { label: "現地確認", value: 33 },
         { label: "指示", value: 66 },
-        { label: "実施済み", value: 100 },
+        { label: "実施済", value: 100 },
     ];
 
     return (

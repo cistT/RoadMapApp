@@ -55,7 +55,7 @@ const DetailDialog = ({
                 >
                     <span>{mapData.id}</span>
                     <span>{mapData.place || "詳細地不明"}</span>
-                    <span>{mapData.respondent_name || "依頼者不明"}</span>
+                    <span>{mapData.respondent_name || "不明"}</span>
                 </Button>
             )}
 

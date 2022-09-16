@@ -6,6 +6,8 @@ import { Button, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 
+import Tooltip from "@mui/material/Tooltip";
+
 const Remarks = ({ value }) => {
     const [remarksValue, setRemarksValue] = useState("");
 
@@ -42,13 +44,15 @@ const Remarks = ({ value }) => {
                 onChange={(e) => handleChange(e)}
             />
             <div css={styles.buttonContainer}>
-                <Button
-                    variant="contained"
-                    onClick={handleSubmit}
-                    css={styles.button}
-                >
-                    <SaveAsIcon />
-                </Button>
+                <Tooltip title="保存" placement="top">
+                    <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        css={styles.button}
+                    >
+                        <SaveAsIcon />
+                    </Button>
+                </Tooltip>
                 <div>
                     {isChanged ? (
                         <span css={styles.saved}>保存済</span>

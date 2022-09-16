@@ -34,8 +34,6 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
                         ? mapData.respondent_name + " さん"
                         : "依頼者不明"}
                     <br />
-                    {mapData.remarks || "メッセージなし"}
-                    <br />
                     <div css={styles.buttonContainer}>
                         <Button
                             href={googleMapUrl}

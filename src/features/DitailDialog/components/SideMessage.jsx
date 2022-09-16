@@ -38,19 +38,24 @@ const SideMessage = ({ mapData, dbMessages }) => {
                 <GroupOrientation menu={menu} selectMenu={selectMenu} />
                 {menu === 0 && (
                     <div css={styles.messageList}>
-                        {dbMessages.map((message, i) => (
-                            <ListItem key={i} css={styles.listItem}>
-                                <div>{message?.manager ?? "不明"}</div>
-                                <ListItemText
-                                    primary={message.message}
-                                    css={styles.messageText}
-                                />
-                                <div>
-                                    {dateToString(
-                                        message?.timestamp?.toDate()
-                                    ) ?? "不明"}
+                        {dbMessages.map((message) => (
+                            <div css={styles.listItem}>
+                                <div css={styles.messageData}>
+                                    <span css={styles.messageManager}>
+                                        {message?.manager ?? "不明"}
+                                    </span>
+                                    <span css={styles.messageTimestamp}>
+                                        {dateToString(
+                                            message?.timestamp?.toDate()
+                                        ) ?? "不明"}
+                                    </span>
                                 </div>
-                            </ListItem>
+                                <div css={styles.messageText}>
+                                    {message.message}
+                                </div>
+                                <hr/>
+                            </div>
+
                         ))}
                     </div>
                 )}
@@ -73,7 +78,7 @@ export default SideMessage;
 const styles = {
     container: css`
         width: 50vw;
-        height: 62vh;
+        height: 60vh;
     `,
     sendBox: css`
         display: flex;
@@ -83,16 +88,30 @@ const styles = {
         width: 100%;
         overflow-y: scroll;
         overflow-x: hidden;
-        max-height: 400px;
-        height: 55.5vh;
+        max-height: 53.5vh;
         border: 1px solid;
     `,
     listItem: css`
-        display: flex;
         gap: 20px;
+        border-radius: 5px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
     `,
     messageText: css`
-        width: 10vw;
+        margin-left: 20px;
+    `,
+    messageData: css`
+        width: 100%;
+        display: flex;
+    `,
+    messageManager: css`
+        font-weight: bold;
+        margin-left: 5px;
+        width: 7vw;
+        font-size: 12px;
+    `,
+    messageTimestamp: css`
+        font-size: 12px;
     `,
 };
 
