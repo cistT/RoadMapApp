@@ -1,10 +1,10 @@
 import CloseButton from "components/Button/CloseButton";
 import OpenButton from "components/Button/OpenButton";
 import { useState } from "react";
-import CompleteList from "./components/Complete/CompleteList";
-import MapList from "./components/Incomplete/MapList";
 import MenuBar from "./components/MenuBar";
 import SearchMenu from "./components/SearchMenu/SearchMenu";
+import Incomplete from "./components/Incomplete"
+import Complete from "./components/Complete"
 
 const SideMenu = ({
     mapData,
@@ -53,10 +53,10 @@ const SideMenu = ({
                     <MenuBar menu={menu} selectMenu={selectMenu} />
 
                     {menu === 0 && (
-                        <MapList mapData={mapData} dbMessages={dbMessages} />
+                        <Incomplete mapData={mapData} dbMessages={dbMessages} />
                     )}
                     {menu === 1 && (
-                        <CompleteList
+                        <Complete
                             archivedMapData={archivedMapData}
                             dbMessages={dbMessages}
                         />
