@@ -1,7 +1,6 @@
 import Leaflet from "leaflet";
 import { Marker, Popup, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import icon from "leaflet/dist/images/marker-icon.png";
 
 import { css } from "@emotion/react";
 
@@ -10,11 +9,14 @@ import DitailDialog from "../../DitailDialog/DitailDialog";
 import { Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 
-let DefaultIcon = Leaflet.icon({
-    iconUrl: icon,
-    color: "blue",
+let IncompleteIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
 });
-Leaflet.Marker.prototype.options.icon = DefaultIcon;
+let CompleteIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",
+});
 
 const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
     const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
@@ -23,11 +25,19 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
         <Marker
             position={[mapData.latitude, mapData.longitude]}
             css={styles.leaflet}
+            icon={
+                //進捗度に応じて、ピンの色を変更（進捗度の変数はまだないため、一旦てきとう）
+                mapData.progress === 100
+                    ? CompleteIcon
+                    : IncompleteIcon
+            }
         >
             <Tooltip direction="top">
-                {mapData.id + " " + mapData.place} 
-                <br/>
-                {(mapData.respondent_name || "不明") + "さん 受付日:" + mapData.timestamp }
+                {mapData.id + " " + mapData.place}
+                <br />
+                {(mapData.respondent_name || "不明") +
+                    "さん 受付日:" +
+                    mapData.timestamp}
             </Tooltip>
             <Popup>
                 <div css={styles.popupContainer}>
