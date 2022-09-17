@@ -21,18 +21,21 @@ const ToIncompleteDialog = ({ mapData, onClickRevertButton }) => {
         <>
             <RevertButton title="元に戻す" onClick={handleOpen} />
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{mapData.place}を元に戻しますか？</DialogTitle>
+                <DialogTitle>
+                    {mapData.id} {mapData.place} を元に戻しますか？
+                </DialogTitle>
 
-                <DialogContent
-                    style={{ display: "flex", whiteSpace: "pre-line" }}
-                >
+                <DialogContent style={{ whiteSpace: "pre-line" }}>
                     <DialogContentText>
-                        {mapData.majorDivisions}
+                        大区分 : {mapData.majorDivisions}
                     </DialogContentText>
-
-                    <DialogContentText>{mapData.contents}</DialogContentText>
-
-                    <DialogContentText>{mapData.message}</DialogContentText>
+                    <DialogContentText>
+                        依頼者 :{" "}
+                        {mapData.respondent_name
+                            ? mapData.respondent_name + "さん"
+                            : "不明"}
+                    </DialogContentText>
+                    <DialogContentText>{mapData.remarks}</DialogContentText>
                 </DialogContent>
 
                 <DialogContent

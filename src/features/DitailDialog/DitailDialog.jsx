@@ -87,7 +87,10 @@ const DetailDialog = ({
                     </div>
 
                     <DialogActions>
-                        <Button onClick={switchContents} css={styles.sideContentButton}>
+                        <Button
+                            onClick={switchContents}
+                            css={styles.sideContentButton}
+                        >
                             {contents ? "メッセージを見る" : "マップを見る"}
                         </Button>
                     </DialogActions>
@@ -131,11 +134,13 @@ const DetailDialog = ({
                                 value={mapData?.progress ?? 0}
                             />
                         </Box>
-                        <NotCompliedProgressButton
-                            saveProgress={saveProgress}
-                            mapData={mapData}
-                            css={styles.notComplied}
-                        />
+                        {hideProgress || (
+                            <NotCompliedProgressButton
+                                saveProgress={saveProgress}
+                                mapData={mapData}
+                                css={styles.notComplied}
+                            />
+                        )}
                         <Box css={styles.down}>
                             <label css={styles.right}>予定日</label>
                             {/* ここでgasから取得した値を渡してあげればいい？ */}
@@ -236,7 +241,7 @@ const styles = {
     `,
     sideContentButton: css`
         width: 12vw;
-    `
+    `,
 };
 
 export default DetailDialog;
