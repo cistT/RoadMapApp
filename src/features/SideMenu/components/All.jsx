@@ -5,10 +5,8 @@ import { TextField } from "@mui/material";
 import { css } from "@emotion/react";
 
 import AllList from "./All/AllList";
-import bindingMapData from "utils/bindingMapData";
 
-const All = ({ mapData, archivedMapData, dbMessages }) => {
-    const allMapData = bindingMapData(mapData, archivedMapData);
+const All = ({ allMapData, dbMessages }) => {
 
     const [keyword, setKeyword] = useState("");
     const [filteredData, setFilteredData] = useState(allMapData);
