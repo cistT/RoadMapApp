@@ -26,7 +26,7 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
             position={[mapData.latitude, mapData.longitude]}
             css={styles.leaflet}
             icon={
-                //進捗度に応じて、ピンの色を変更（進捗度の変数はまだないため、一旦てきとう）
+                //進捗度に応じて、ピンの色を変更
                 mapData.progress === 100
                     ? CompleteIcon
                     : IncompleteIcon

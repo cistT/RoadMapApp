@@ -2,16 +2,18 @@ import Leaflet from "leaflet";
 import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-import icon from "leaflet/dist/images/marker-icon.png";
-
 import { css } from "@emotion/react";
 import { Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 
-let DefaultIcon = Leaflet.icon({
-    iconUrl: icon,
+let IncompleteIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
 });
-Leaflet.Marker.prototype.options.icon = DefaultIcon;
+let CompleteIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",
+});
 
 const SideMap = ({ mapData }) => {
     const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
@@ -30,7 +32,13 @@ const SideMap = ({ mapData }) => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[mapData.latitude, mapData.longitude]}>
+                <Marker
+                    position={[mapData.latitude, mapData.longitude]}
+                    icon={
+                        //進捗度に応じて、ピンの色を変更
+                        mapData.progress === 100 ? CompleteIcon : IncompleteIcon
+                    }
+                >
                     <Tooltip direction="top" permanent>
                         <div css={styles.tooltipContainer}>
                             {mapData.address}
