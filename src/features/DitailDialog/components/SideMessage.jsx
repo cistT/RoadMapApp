@@ -14,6 +14,8 @@ import GroupOrientation from "../../../components/Button/GroupOrientation";
 import useFetchImages from "../../../hooks/useFetchImages";
 import dateToString from "utils/dateToString";
 import { useEffect } from "react";
+import { createRef } from "react";
+import { useCallback } from "react";
 
 //ToDo コンポーネントの名前を変える
 const SideMessage = ({ mapData, dbMessages }) => {
@@ -25,12 +27,18 @@ const SideMessage = ({ mapData, dbMessages }) => {
     const [imgs, _] = useFetchImages(imgUrl, mapData.id);
 
     // 最新のメッセージを表示する処理（一番下にスクロール済みの状態にする）
-    // 参考サイト : https://teratail.com/questions/302384
+    // https://dev.classmethod.jp/articles/react-scroll-into-view-on-load/
 
-    // useEffect(() => {
-    //     console.log("スクロール！！！");
-    //     window.scrollTo(10000, 0);
-    // }, []);
+    const ref = createRef();
+    const scrollToBottomOfMessages = useCallback(() => {
+        ref.current.scrollIntoView({
+            block: "end",
+        });
+    }, [ref]);
+
+    useEffect(() => {
+        scrollToBottomOfMessages();
+    }, []);
 
     return (
         <div css={styles.container}>
@@ -38,7 +46,7 @@ const SideMessage = ({ mapData, dbMessages }) => {
                 <GroupOrientation menu={menu} selectMenu={selectMenu} />
                 {menu === 0 && (
                     <div css={styles.messageList}>
-                        {dbMessages.map((message) => (
+                        {dbMessages.map((message, index) => (
                             <div css={styles.listItem}>
                                 <div css={styles.messageData}>
                                     <span css={styles.messageManager}>
@@ -53,9 +61,12 @@ const SideMessage = ({ mapData, dbMessages }) => {
                                 <div css={styles.messageText}>
                                     {message.message}
                                 </div>
-                                <hr/>
+                                {index === dbMessages.length - 1 ? (
+                                    <hr ref={ref} />
+                                ) : (
+                                    <hr />
+                                )}
                             </div>
-
                         ))}
                     </div>
                 )}
