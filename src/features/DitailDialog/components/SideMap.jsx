@@ -14,9 +14,21 @@ let CompleteIcon = Leaflet.icon({
     iconUrl:
         "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",
 });
+let alertIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+});
 
 const SideMap = ({ mapData }) => {
     const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
+
+    const date = Date.parse(mapData.timestamp);
+    const now = new Date();
+    const beforeOneMonth = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+    );
 
     return (
         <div css={styles.container}>
@@ -36,7 +48,12 @@ const SideMap = ({ mapData }) => {
                     position={[mapData.latitude, mapData.longitude]}
                     icon={
                         //進捗度に応じて、ピンの色を変更
-                        mapData.progress === 100 ? CompleteIcon : IncompleteIcon
+                        mapData.progress === 100
+                            ? CompleteIcon
+                            : // 進捗度が0であることは現状ないため、一旦null?の反転で実装
+                            !mapData.progress && beforeOneMonth < now
+                            ? alertIcon
+                            : IncompleteIcon
                     }
                 >
                     <Tooltip direction="top" permanent>
