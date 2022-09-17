@@ -48,10 +48,9 @@ const Complete = ({ mapData, dbMessages }) => {
                 }}
                 css={styles.textField}
             />
-            {filteredData === undefined ? (
+            {mapData.length === 0 ? (
                 <div css={styles.message}>未完了のデータがありません</div>
-            ) : 
-            filteredData.length !== 0 ? (
+            ) : filteredData.length !== 0 ? (
                 <MapList mapData={filteredData} dbMessages={dbMessages} />
             ) : (
                 <div css={styles.message}>該当する検索結果がありません</div>
@@ -69,7 +68,7 @@ const styles = {
     message: css`
         text-align: center;
         margin-top: 10px;
-    `
+    `,
 };
 
 export default Complete;

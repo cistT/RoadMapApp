@@ -5,6 +5,7 @@ import MenuBar from "./components/MenuBar";
 import SearchMenu from "./components/SearchMenu/SearchMenu";
 import Incomplete from "./components/Incomplete"
 import Complete from "./components/Complete"
+import All from "./components/All" 
 
 const SideMenu = ({
     mapData,
@@ -62,6 +63,13 @@ const SideMenu = ({
                         />
                     )}
                     {menu === 2 && (
+                        <All
+                            mapData={mapData}
+                            archivedMapData={archivedMapData}
+                            dbMessages={dbMessages}
+                        />
+                    )}
+                    {menu === 3 && (
                         <SearchMenu
                             mapData={mapData}
                             saveDisplayMapIcons={saveDisplayMapIcons}

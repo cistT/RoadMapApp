@@ -1,15 +1,17 @@
 import { useState } from "react";
 
 import { useEffect } from "react";
-
 import { TextField } from "@mui/material";
-
 import { css } from "@emotion/react";
-import CompleteList from "./Complete/CompleteList";
 
-const Incomplete = ({ archivedMapData, dbMessages }) => {
+import AllList from "./All/AllList";
+import bindingMapData from "utils/bindingMapData";
+
+const All = ({ mapData, archivedMapData, dbMessages }) => {
+    const allMapData = bindingMapData(mapData, archivedMapData);
+
     const [keyword, setKeyword] = useState("");
-    const [filteredData, setFilteredData] = useState(archivedMapData);
+    const [filteredData, setFilteredData] = useState(allMapData);
 
     const handleChange = (e) => {
         const newKeyword = e.target.value;
@@ -17,24 +19,28 @@ const Incomplete = ({ archivedMapData, dbMessages }) => {
     };
 
     useEffect(() => {
-        console.log("変更 : " + keyword);
-
         const searchKeyword = keyword
             .trim()
             .toLowerCase()
             .match(/[^\s]+/g);
 
         if (keyword === "" || searchKeyword === null) {
-            setFilteredData(archivedMapData);
+            setFilteredData(allMapData);
             return;
         }
 
-        const result = archivedMapData.filter((data) =>
+        const result = allMapData.filter((data) =>
             searchKeyword.every(
                 (kw) => data.respondent_name.toLowerCase().indexOf(kw) !== -1
             )
         );
         setFilteredData(result);
+
+        // console.log(mapData);
+        // console.log(archivedMapData);
+        // console.log(allMapData);
+        // console.log(filteredData);
+
     }, [keyword]);
 
     return (
@@ -48,10 +54,10 @@ const Incomplete = ({ archivedMapData, dbMessages }) => {
                 }}
                 css={styles.textField}
             />
-            {archivedMapData.length === 0 ? (
-                <div css={styles.message}>完了のデータがありません</div>
+            {filteredData === undefined ? (
+                <div css={styles.message}>データがありません</div>
             ) : filteredData.length !== 0 ? (
-                <CompleteList archivedMapData={filteredData} dbMessages={dbMessages} />
+                <AllList allMapData={filteredData} dbMessages={dbMessages} />
             ) : (
                 <div css={styles.message}>該当する検索結果がありません</div>
             )}
@@ -71,4 +77,4 @@ const styles = {
     `,
 };
 
-export default Incomplete;
+export default All;
