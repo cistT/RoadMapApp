@@ -1,5 +1,5 @@
 import Leaflet from "leaflet";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 
@@ -24,6 +24,11 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
             position={[mapData.latitude, mapData.longitude]}
             css={styles.leaflet}
         >
+            <Tooltip direction="top">
+                {mapData.id + " " + mapData.place} 
+                <br/>
+                {(mapData.respondent_name || "不明") + "さん 受付日:" + mapData.timestamp }
+            </Tooltip>
             <Popup>
                 <div css={styles.popupContainer}>
                     <span css={styles.place}>

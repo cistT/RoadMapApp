@@ -27,3 +27,5 @@ const renameKeys = (obj, newKeys) => {
 };
 
 export default bindingMapData;
+
+// 参考資料 : https://programmer-life.work/javascript/object-rename-key-javascript
