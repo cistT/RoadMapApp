@@ -78,7 +78,7 @@ const styles = {
     previewImg: css`
         height: 400px;
         width: 49.5%;
-        object-fit: none;
+        object-fit: contain;
         zoom: 0.4;
         object-position: 50% 50%;
         border: 0.5px black solid;
