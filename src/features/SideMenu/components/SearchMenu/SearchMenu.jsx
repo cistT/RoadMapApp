@@ -44,20 +44,7 @@ const SearchMenu = ({ mapData, saveDisplayMapIcons, dbMessages }) => {
 
     return (
         <>
-            <TextField
-                id="field"
-                variant="outlined"
-                label="検索"
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                css={styles.textField}
-            />
-            {filteredData.length !== 0 ? (
-                <MapList mapData={filteredData} dbMessages={dbMessages} />
-            ) : (
-                <div css={styles.message}>該当する検索結果がありません</div>
-            )}
+            <h2>検索機能は未実装</h2>
         </>
     );
 };

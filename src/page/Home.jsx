@@ -117,13 +117,13 @@ const Home = () => {
                 });
             fetchImgUrl();
             // @city.chitose.lg.jp以外のメアドだったら、個人情報を空にする
-            if (!cityHallRegex.test(user?.email)) {
-                json.map((data) => {
-                    data.respondent_name = "";
-                    data.respondent_address = "";
-                    data.respondent_phone_number = "";
-                });
-            }
+            // if (!cityHallRegex.test(user?.email)) {
+            //     json.map((data) => {
+            //         data.respondent_name = "";
+            //         data.respondent_address = "";
+            //         data.respondent_phone_number = "";
+            //     });
+            // }
             setMapData(json);
             setLoad(false);
             setDisplayMapIcons(json);
