@@ -6,6 +6,8 @@ import { Button, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 
+import Tooltip from "@mui/material/Tooltip";
+
 const Remarks = ({ value }) => {
     const [remarksValue, setRemarksValue] = useState("");
 
@@ -28,7 +30,7 @@ const Remarks = ({ value }) => {
     };
 
     return (
-        <>
+        <div css={styles.container}>
             <TextField
                 name="remarks"
                 label="備考欄"
@@ -41,46 +43,50 @@ const Remarks = ({ value }) => {
                 variant="outlined"
                 onChange={(e) => handleChange(e)}
             />
-            <Button
-                variant="contained"
-                onClick={handleSubmit}
-                css={styles.button}
-                endIcon={<SaveAsIcon />}
-            >
-                保存
-            </Button>
-
-            <div css={styles.message}>
-                {isChanged ? (
-                    <span css={styles.saved}>保存しました</span>
-                ) : (
-                    <span css={styles.unSaved}>保存していません</span>
-                )}
+            <div css={styles.buttonContainer}>
+                <Tooltip title="保存" placement="top">
+                    <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        css={styles.button}
+                    >
+                        <SaveAsIcon />
+                    </Button>
+                </Tooltip>
+                <div>
+                    {isChanged ? (
+                        <span css={styles.saved}>保存済</span>
+                    ) : (
+                        <span css={styles.unSaved}>未保存</span>
+                    )}
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 
 const styles = {
     button: css`
-        margin-left: 10px;
-        padding-left: 10px;
-        margin-top: 2px;
+        //     margin-left: 10px;
+        //     padding-left: 10px;
+        //     margin-top: 2px;
     `,
     remarks: css`
         width: 36vw;
         margin-top: 5px;
-    `,
-    message: css`
-        text-align: right;
-        margin-top: 5px;
-        margin-right: 8vw;
     `,
     saved: css`
         color: blue;
     `,
     unSaved: css`
         color: black;
+    `,
+    container: css`
+        display: flex;
+    `,
+    buttonContainer: css`
+        text-align: center;
+        margin-left: 10px;
     `,
 };
 

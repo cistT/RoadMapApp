@@ -8,7 +8,7 @@ const ProgressButtons = ({ saveProgress, mapData }) => {
     const buttons = [
         { label: "現地確認", value: 33 },
         { label: "指示", value: 66 },
-        { label: "実施済み", value: 100 },
+        { label: "実施済", value: 100 },
     ];
 
     return (
@@ -34,14 +34,17 @@ const styles = {
     blueButton: css`
         height: 30px;
         width: 110px;
-        margin: 5px;
+        margin: 5px 5px 0 5px;
         background: blue;
         color: white;
+        :hover {
+            color: blue;
+        }
     `,
     whiteButton: css`
         height: 30px;
         width: 110px;
-        margin: 5px;
+        margin: 5px 5px 0 5px;
         color: blue;
     `,
 };

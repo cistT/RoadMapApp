@@ -40,9 +40,9 @@ const CalendarButton = () => {
                 onChange={changeDateHandler}
             />
             {isUnChanged ? (
-                <span css={styles.message}>予定日は既に入力されています</span>
+                <span css={styles.message}>確定済</span>
             ) : (
-                <span css={styles.cautionMessage}>まだ予定日が未定です</span>
+                <span css={styles.cautionMessage}>未確定</span>
             )}
         </MuiPickersUtilsProvider>
     );

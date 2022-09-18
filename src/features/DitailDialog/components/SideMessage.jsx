@@ -13,6 +13,9 @@ import GroupOrientation from "../../../components/Button/GroupOrientation";
 
 import useFetchImages from "../../../hooks/useFetchImages";
 import dateToString from "utils/dateToString";
+import { useEffect } from "react";
+import { createRef } from "react";
+import { useCallback } from "react";
 
 //ToDo コンポーネントの名前を変える
 const SideMessage = ({ mapData, dbMessages }) => {
@@ -23,22 +26,47 @@ const SideMessage = ({ mapData, dbMessages }) => {
 
     const [imgs, _] = useFetchImages(imgUrl, mapData.id);
 
+    // 最新のメッセージを表示する処理（一番下にスクロール済みの状態にする）
+    // https://dev.classmethod.jp/articles/react-scroll-into-view-on-load/
+
+    const ref = createRef();
+    const scrollToBottomOfMessages = useCallback(() => {
+        ref.current.scrollIntoView({
+            block: "end",
+        });
+    }, [ref]);
+
+    useEffect(() => {
+        scrollToBottomOfMessages();
+    }, []);
+
     return (
         <div css={styles.container}>
             <div css={styles.sendBox}>
                 <GroupOrientation menu={menu} selectMenu={selectMenu} />
                 {menu === 0 && (
                     <div css={styles.messageList}>
-                        {dbMessages.map((message, i) => (
-                            <ListItem key={i} css={styles.listItem}>
-                                <div>{message?.manager ?? "不明"}</div>
-                                <ListItemText primary={message.message} />
-                                <div>
-                                    {dateToString(
-                                        message?.timestamp?.toDate()
-                                    ) ?? "不明"}
+                        {dbMessages.map((message, index) => (
+                            <div css={styles.listItem}>
+                                <div css={styles.messageData}>
+                                    <span css={styles.messageManager}>
+                                        {message?.manager ?? "不明"}
+                                    </span>
+                                    <span css={styles.messageTimestamp}>
+                                        {dateToString(
+                                            message?.timestamp?.toDate()
+                                        ) ?? "不明"}
+                                    </span>
                                 </div>
-                            </ListItem>
+                                <div css={styles.messageText}>
+                                    {message.message}
+                                </div>
+                                {index === dbMessages.length - 1 ? (
+                                    <hr ref={ref} />
+                                ) : (
+                                    <hr />
+                                )}
+                            </div>
                         ))}
                     </div>
                 )}
@@ -61,22 +89,40 @@ export default SideMessage;
 const styles = {
     container: css`
         width: 50vw;
+        height: 60vh;
     `,
     sendBox: css`
         display: flex;
         width: 100%;
     `,
     messageList: css`
-        width: 80%;
+        width: 100%;
         overflow-y: scroll;
         overflow-x: hidden;
-        max-height: 400px;
-        height: 400px;
+        max-height: 53.5vh;
         border: 1px solid;
     `,
     listItem: css`
-        display: flex;
         gap: 20px;
+        border-radius: 5px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    `,
+    messageText: css`
+        margin-left: 20px;
+    `,
+    messageData: css`
+        width: 100%;
+        display: flex;
+    `,
+    messageManager: css`
+        font-weight: bold;
+        margin-left: 5px;
+        width: 7vw;
+        font-size: 12px;
+    `,
+    messageTimestamp: css`
+        font-size: 12px;
     `,
 };
 

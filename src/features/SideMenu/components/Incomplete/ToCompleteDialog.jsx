@@ -26,16 +26,19 @@ const ToCompleteDialog = ({ mapData, archiveMapData }) => {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{mapData.place}を完了にしますか</DialogTitle>
 
-                <DialogContent
-                    style={{ display: "flex", whiteSpace: "pre-line" }}
-                >
+                <DialogContent style={{ whiteSpace: "pre-line" }}>
                     <DialogContentText>
-                        {mapData.majorDivisions}
+                        大区分 : {mapData.majorDivisions}
                     </DialogContentText>
 
-                    <DialogContentText>{mapData.contents}</DialogContentText>
+                    <DialogContentText>
+                        依頼者 :{" "}
+                        {mapData.respondent_name
+                            ? mapData.respondent_name + "さん"
+                            : "不明"}
+                    </DialogContentText>
 
-                    <DialogContentText>{mapData.message}</DialogContentText>
+                    <DialogContentText>{mapData.remarks}</DialogContentText>
                 </DialogContent>
 
                 <DialogContent

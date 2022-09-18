@@ -1,27 +1,44 @@
 import Leaflet from "leaflet";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-import icon from "leaflet/dist/images/marker-icon.png";
+import { css } from "@emotion/react";
+import { Button } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
 
-let DefaultIcon = Leaflet.icon({
-    iconUrl: icon,
+let IncompleteIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
 });
-Leaflet.Marker.prototype.options.icon = DefaultIcon;
+let CompleteIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",
+});
+let alertIcon = Leaflet.icon({
+    iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+});
 
 const SideMap = ({ mapData }) => {
+    const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
+
+    const date = Date.parse(mapData.timestamp);
+    const now = new Date();
+    const beforeOneMonth = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+    );
+
     return (
-        <>
+        <div css={styles.container}>
             <MapContainer
                 center={[mapData.latitude, mapData.longitude]}
                 zoom={14}
                 scrollWheelZoom
                 zoomControl={false}
                 centerUpdate
-                style={{
-                    height: "40vh",
-                    width: "40vw",
-                }}
+                css={styles.MapContainer}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -29,11 +46,53 @@ const SideMap = ({ mapData }) => {
                 />
                 <Marker
                     position={[mapData.latitude, mapData.longitude]}
-                    markerColor="red"
-                ></Marker>
+                    icon={
+                        //進捗度に応じて、ピンの色を変更
+                        mapData.progress === 100
+                            ? CompleteIcon
+                            : // 進捗度が0であることは現状ないため、一旦null?の反転で実装
+                            !mapData.progress && beforeOneMonth < now
+                            ? alertIcon
+                            : IncompleteIcon
+                    }
+                >
+                    <Tooltip direction="top" permanent>
+                        <div css={styles.tooltipContainer}>
+                            {mapData.address}
+                        </div>
+                    </Tooltip>
+                </Marker>
             </MapContainer>
-        </>
+            <Button
+                href={googleMapUrl}
+                target="_blank"
+                variant="outlined"
+                css={styles.googleMapButton}
+                startIcon={<GoogleIcon />}
+            >
+                GoogleMapで確認
+            </Button>
+        </div>
     );
+};
+
+const styles = {
+    container: css`
+        text-align: center;
+        margin-top: 5vh;
+    `,
+    MapContainer: css`
+        height: 40vh;
+        width: 40vw;
+    `,
+    googleMapButton: css`
+        color: black;
+        text-transform: none;
+        margin: 5px;
+    `,
+    tooltipContainer: css`
+        font-size: 15px;
+    `,
 };
 
 export default SideMap;

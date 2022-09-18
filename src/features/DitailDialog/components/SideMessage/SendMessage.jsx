@@ -36,16 +36,12 @@ const SendMessage = ({ mapDataId }) => {
         <>
             <Paper
                 component="form"
-                sx={{
-                    p: "2px 4px",
-                    marginTop: "10px",
-                    width: "40vw",
-                }}
+                css={styles.paper}
                 onSubmit={sendMessage}
             >
                 <div css={styles.container}>
                     <InputBase
-                        sx={{ ml: 1, flex: 1 }}
+                        css={styles.input}
                         placeholder="メッセージの送信"
                         inputProps={{ "aria-label": "メッセージの送信" }}
                         value={message}
@@ -54,7 +50,7 @@ const SendMessage = ({ mapDataId }) => {
 
                     <div style={{ display: "flex" }}>
                         <Divider
-                            sx={{ height: 40, m: 0.5 }}
+                            css={styles.divider}
                             orientation="vertical"
                         />
                         <Tooltip title="メッセージを送信する">
@@ -75,22 +71,29 @@ export default SendMessage;
 const styles = {
     paper: css`
         padding: 2px 4px;
-        margin-top: 10px;
-        width: 40vw;
+        margin-top: 2px;
     `,
     container: css`
         display: flex;
-        max-height: 50px;
-        width: 40vw;
+        height: 8vh;
+        width: 100%;
         justify-content: space-between;
     `,
     icon: css`
-        height: 40px;
-        width: 40px;
-        margin: 5px;
+        height: 45px;
+        width: 45px;
     `,
     successMessage: css`
         font-size: 15px;
         margin-left: 100px;
     `,
+    input: css`
+        margin-left: 1;
+        padding-left: 64px;
+        flex: 1;
+    `,
+    divider: css`
+        height: 40;
+        margin: 0.5;
+    `
 };

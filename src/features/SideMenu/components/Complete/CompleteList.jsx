@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { List } from "@mui/material";
 
 import { SaveDisplayMapIcons } from "page/Home";
-import ArchiveListItem from "./CompleteListItem";
+import CompleteListItem from "./CompleteListItem";
 
 const CompleteList = ({ archivedMapData, dbMessages }) => {
     const saveDisplayMapIcons = useContext(SaveDisplayMapIcons);
@@ -21,7 +21,7 @@ const CompleteList = ({ archivedMapData, dbMessages }) => {
                 }}
             >
                 {archivedMapData.map((data) => (
-                    <ArchiveListItem
+                    <CompleteListItem
                         saveDisplayMapIcons={() =>
                             saveDisplayMapIcons(
                                 archivedMapData.filter(

@@ -1,10 +1,13 @@
 import CloseButton from "components/Button/CloseButton";
 import OpenButton from "components/Button/OpenButton";
 import { useState } from "react";
-import CompleteList from "./components/Complete/CompleteList";
-import MapList from "./components/Incomplete/MapList";
 import MenuBar from "./components/MenuBar";
 import SearchMenu from "./components/SearchMenu/SearchMenu";
+import Incomplete from "./components/Incomplete"
+import Complete from "./components/Complete"
+import All from "./components/All" 
+
+import bindingMapData from "utils/bindingMapData";
 
 const SideMenu = ({
     mapData,
@@ -13,6 +16,8 @@ const SideMenu = ({
     dbMessages,
 }) => {
     const [menu, setMenu] = useState(0);
+
+    const allMapData = bindingMapData(mapData, archivedMapData);
 
     //検索した際に除去されたアイコンが
     //一覧ボタンを押したら元に戻るような処理
@@ -25,13 +30,17 @@ const SideMenu = ({
         saveDisplayMapIcons(archivedMapData);
     };
 
+    const allMapIcon = () => {
+        saveDisplayMapIcons(allMapData);
+    }
+
     const selectMenu = (i) => {
         if (i === 0) {
             resetMapIcon();
         } else if (i === 1) {
             archivedMapIcon();
         } else if (i === 2) {
-            resetMapIcon();
+            allMapIcon();
         }
         setMenu(i);
     };
@@ -53,15 +62,21 @@ const SideMenu = ({
                     <MenuBar menu={menu} selectMenu={selectMenu} />
 
                     {menu === 0 && (
-                        <MapList mapData={mapData} dbMessages={dbMessages} />
+                        <Incomplete mapData={mapData} dbMessages={dbMessages} />
                     )}
                     {menu === 1 && (
-                        <CompleteList
+                        <Complete
                             archivedMapData={archivedMapData}
                             dbMessages={dbMessages}
                         />
                     )}
                     {menu === 2 && (
+                        <All
+                            allMapData={allMapData}
+                            dbMessages={dbMessages}
+                        />
+                    )}
+                    {menu === 3 && (
                         <SearchMenu
                             mapData={mapData}
                             saveDisplayMapIcons={saveDisplayMapIcons}

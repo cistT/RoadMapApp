@@ -7,7 +7,7 @@ import { RevertArchive } from "page/Home";
 import DitailDialog from "features/DitailDialog/DitailDialog";
 import ToIncompleteDialog from "features/SideMenu/components/Complete/ToIncompleteDialog";
 
-const ArchiveListItem = ({
+const CompleteListItem = ({
     archivedMapData,
     saveDisplayMapIcons,
     dbMessages,
@@ -34,4 +34,4 @@ const ArchiveListItem = ({
         </>
     );
 };
-export default ArchiveListItem;
+export default CompleteListItem;

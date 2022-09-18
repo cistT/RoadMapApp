@@ -32,8 +32,8 @@ export default Images;
 
 const styles = {
     container: css`
-        height: 400px;
-        width: 80%;
+        height: 53.5vh;
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;

@@ -36,6 +36,9 @@ const styles = {
         margin: 5px;
         background: blue;
         color: white;
+        :hover {
+            color: blue;
+        }
     `,
     whiteButton: css`
         height: 30px;

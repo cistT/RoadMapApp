@@ -8,6 +8,8 @@ import Header from "../components/Header/Header";
 import Map from "../features/Map/Map";
 import SideMenu from "../features/SideMenu/SideMenu";
 
+import { useAuthContext } from "../routes/AuthContext";
+
 //全体のソースコード
 //変数名は適宜変えよう
 //CSSはcss-in-jsで書き直したほうが良い
@@ -34,6 +36,9 @@ const Home = () => {
 
     const [displayMapIcons, setDisplayMapIcons] = useState([]);
     const saveDisplayMapIcons = (mapData) => setDisplayMapIcons(mapData);
+
+    const user = useAuthContext();
+    const cityHallRegex = /@city.chitose.lg.jp$/;
 
     const [archivedMapData, setArchivedMapData] = useState([]);
     const archiveMapData = (newArchiveMapData) => {
@@ -111,6 +116,14 @@ const Home = () => {
                     setDBMessages(snapshot.docs.map((doc) => doc.data()));
                 });
             fetchImgUrl();
+            // @city.chitose.lg.jp以外のメアドだったら、個人情報を空にする
+            if (!cityHallRegex.test(user?.email)) {
+                json.map((data) => {
+                    data.respondent_name = "";
+                    data.respondent_address = "";
+                    data.respondent_phone_number = "";
+                });
+            }
             setMapData(json);
             setLoad(false);
             setDisplayMapIcons(json);

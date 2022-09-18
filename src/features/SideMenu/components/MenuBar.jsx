@@ -3,6 +3,7 @@ import Tab from "@mui/material/Tab";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import SearchIcon from "@mui/icons-material/Search";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
 
 const MenuBar = ({ menu, selectMenu }) => {
     const handleChange = (_, newValue) => {
@@ -20,6 +21,7 @@ const MenuBar = ({ menu, selectMenu }) => {
             >
                 <Tab icon={<ViewListIcon />} label="未完了" />
                 <Tab icon={<ArchiveIcon />} label="完了" />
+                <Tab icon={<AutoAwesomeMotionTwoToneIcon />} label="全件表示" />
                 <Tab icon={<SearchIcon />} label="検索" />
             </Tabs>
         </>
