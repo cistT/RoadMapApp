@@ -41,6 +41,8 @@ const SideMenu = ({
             archivedMapIcon();
         } else if (i === 2) {
             allMapIcon();
+        } else if (i === 3) {
+            //
         }
         setMenu(i);
     };
