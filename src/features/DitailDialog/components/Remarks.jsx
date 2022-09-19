@@ -3,25 +3,25 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import { Button, TextField } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 
 import Tooltip from "@mui/material/Tooltip";
+import usePostGAS from "hooks/usePostGAS";
 
-const Remarks = ({ value }) => {
-    const [remarksValue, setRemarksValue] = useState("");
+const Remarks = ({ id, value }) => {
+    const [remarksValue, setRemarksValue] = useState(value);
 
     const [isChanged, setIsChanged] = useState(false);
 
-    // 最初にpropsをstateに格納
-    useEffect(() => {
-        setRemarksValue(value);
-    }, []);
+    const { postData } = usePostGAS();
 
     const handleSubmit = () => {
-        console.log("送信！");
         setIsChanged(true);
-        // remarksValueをgasのapiへのデータの送信処理を書く
+        postData({
+            id: id,
+            remarks: remarksValue,
+        });
     };
 
     const handleChange = (e) => {
@@ -39,17 +39,14 @@ const Remarks = ({ value }) => {
                 value={remarksValue}
                 id="filled-multiline-flexible"
                 multiline
+                rows={4}
                 maxRows={15}
                 variant="outlined"
                 onChange={(e) => handleChange(e)}
             />
             <div css={styles.buttonContainer}>
                 <Tooltip title="保存" placement="top">
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                        css={styles.button}
-                    >
+                    <Button variant="contained" onClick={handleSubmit}>
                         <SaveAsIcon />
                     </Button>
                 </Tooltip>
@@ -66,11 +63,6 @@ const Remarks = ({ value }) => {
 };
 
 const styles = {
-    button: css`
-        //     margin-left: 10px;
-        //     padding-left: 10px;
-        //     margin-top: 2px;
-    `,
     remarks: css`
         width: 36vw;
         margin-top: 5px;
