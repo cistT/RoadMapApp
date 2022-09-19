@@ -8,13 +8,19 @@ import { Button } from "@mui/material";
 import ArchiveButton from "components/Button/ArchiveButton";
 
 import useDialog from "hooks/useDialog";
+import usePostGAS from "hooks/usePostGAS";
 
-//ToDo コンポーネント名を変える
 //未完了リストから完了リストに移動するダイアログ
 const ToCompleteDialog = ({ mapData, archiveMapData }) => {
     const { open, handleOpen, handleClose } = useDialog(false);
 
+    const { post } = usePostGAS();
+
     const decisionArchiveMapData = () => {
+        post({
+            id: mapData.id,
+            complete: true,
+        });
         archiveMapData(mapData);
         handleClose();
     };
