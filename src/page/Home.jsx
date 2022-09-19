@@ -4,11 +4,8 @@ import { db } from "../config/firebase";
 
 import LoadingScreen from "./LoadingScreen";
 import Header from "../components/Header/Header";
-
 import Map from "../features/Map/Map";
 import SideMenu from "../features/SideMenu/SideMenu";
-
-import { useAuthContext } from "../routes/AuthContext";
 
 //全体のソースコード
 //変数名は適宜変えよう
@@ -20,6 +17,7 @@ export const SaveDisplayMapIcons = createContext();
 export const ArchiveMapData = createContext();
 export const RevertArchive = createContext();
 export const ImageUrl = createContext();
+export const ChangeManager = createContext();
 
 //URLさえわかれば、だれでも情報の書き換えができてしまうのでログイン機能の実装が必要
 const Home = () => {
@@ -36,9 +34,6 @@ const Home = () => {
 
     const [displayMapIcons, setDisplayMapIcons] = useState([]);
     const saveDisplayMapIcons = (mapData) => setDisplayMapIcons(mapData);
-
-    const user = useAuthContext();
-    const cityHallRegex = /@city.chitose.lg.jp$/;
 
     const [archivedMapData, setArchivedMapData] = useState([]);
     const archiveMapData = (newArchiveMapData) => {
@@ -66,9 +61,6 @@ const Home = () => {
                 return data;
             })
         );
-
-        // ここに進捗のパーセンテージをgasに入力する処理を追加すればいい？
-        console.log("id: " + mapDataId + " %: " + progress);
     };
 
     const revertArchive = (revertMapData) => {
@@ -82,13 +74,13 @@ const Home = () => {
     const [imgUrl, setImgUrl] = useState([]);
     const fetchImgUrl = () => {
         db.collection("img")
-            // .where("mapDataId", "==", mapData.id)
             .orderBy("time")
             .limit(50)
             .onSnapshot((snapshot) => {
                 setImgUrl(snapshot.docs.map((doc) => doc.data()));
             });
     };
+    const [allData, setAllData] = useState([]);
     useLayoutEffect(() => {
         //エラー処理は書こう
 
@@ -116,19 +108,25 @@ const Home = () => {
                     setDBMessages(snapshot.docs.map((doc) => doc.data()));
                 });
             fetchImgUrl();
-            // @city.chitose.lg.jp以外のメアドだったら、個人情報を空にする
-            // if (!cityHallRegex.test(user?.email)) {
-            //     json.map((data) => {
-            //         data.respondent_name = "";
-            //         data.respondent_address = "";
-            //         data.respondent_phone_number = "";
-            //     });
-            // }
-            setMapData(json);
+
+            setMapData(json.filter((data) => data.complete !== true));
+            setArchivedMapData(json.filter((data) => data.complete === true));
             setLoad(false);
             setDisplayMapIcons(json);
+            setAllData(json);
         })();
     }, []);
+
+    const changeManager = (id, manager) => {
+        setMapData(
+            mapData.map((data) => {
+                if (data.id === id) {
+                    return { ...data, manager: manager };
+                }
+                return data;
+            })
+        );
+    };
 
     return (
         <>
@@ -147,32 +145,42 @@ const Home = () => {
                         <ImageUrl.Provider value={imgUrl}>
                             <SaveProgress.Provider value={saveProgress}>
                                 <ArchiveMapData.Provider value={archiveMapData}>
-                                    <SaveDisplayMapIcons.Provider
-                                        value={saveDisplayMapIcons}
+                                    <ChangeManager.Provider
+                                        value={changeManager}
                                     >
-                                        <RevertArchive.Provider
-                                            value={revertArchive}
+                                        <SaveDisplayMapIcons.Provider
+                                            value={saveDisplayMapIcons}
                                         >
-                                            <SideMenu
-                                                mapData={mapData}
-                                                archivedMapData={
-                                                    archivedMapData
-                                                }
-                                                saveDisplayMapIcons={
-                                                    saveDisplayMapIcons
-                                                }
-                                                dbMessages={dbMessages}
-                                            />
-                                        </RevertArchive.Provider>
-                                    </SaveDisplayMapIcons.Provider>
+                                            <RevertArchive.Provider
+                                                value={revertArchive}
+                                            >
+                                                <SideMenu
+                                                    mapData={mapData}
+                                                    allData={allData}
+                                                    archivedMapData={
+                                                        archivedMapData
+                                                    }
+                                                    saveDisplayMapIcons={
+                                                        saveDisplayMapIcons
+                                                    }
+                                                    dbMessages={dbMessages}
+                                                />
+
+                                                <Map
+                                                    defaultPosition={
+                                                        defaultPosition
+                                                    }
+                                                    displayMapIcons={
+                                                        displayMapIcons
+                                                    }
+                                                    dbMessages={dbMessages}
+                                                    saveProgress={saveProgress}
+                                                />
+                                            </RevertArchive.Provider>
+                                        </SaveDisplayMapIcons.Provider>
+                                    </ChangeManager.Provider>
                                 </ArchiveMapData.Provider>
                             </SaveProgress.Provider>
-                            <Map
-                                defaultPosition={defaultPosition}
-                                displayMapIcons={displayMapIcons}
-                                dbMessages={dbMessages}
-                                saveProgress={saveProgress}
-                            />
                         </ImageUrl.Provider>
                     </div>
                 </>
