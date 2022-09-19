@@ -1,11 +1,11 @@
-import { NotificationsOffOutlined } from "@material-ui/icons";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 import { css } from "@emotion/react";
 
-const NotCompliedProgressButton = ({ saveProgress, mapData }) => {
+const NotCompliedProgressButton = ({ onClick, progress = -100 }) => {
     const button = { label: "未実施", value: 100 };
+
     return (
         <>
             <Typography gutterBottom></Typography>
@@ -13,10 +13,10 @@ const NotCompliedProgressButton = ({ saveProgress, mapData }) => {
                 <div css={styles.nullButton} />
                 <div css={styles.nullButton} />
                 <Button
-                    onClick={() => saveProgress(mapData.id, button.value)}
+                    onClick={() => onClick(button.value, button.label)}
                     variant="outlined"
                     css={
-                        mapData?.progress === button.value
+                        progress === button.value
                             ? styles.blueButton
                             : styles.whiteButton
                     }
