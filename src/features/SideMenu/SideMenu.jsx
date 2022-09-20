@@ -3,21 +3,18 @@ import OpenButton from "components/Button/OpenButton";
 import { useState } from "react";
 import MenuBar from "./components/MenuBar";
 import SearchMenu from "./components/SearchMenu/SearchMenu";
-import Incomplete from "./components/Incomplete"
-import Complete from "./components/Complete"
-import All from "./components/All" 
-
-import bindingMapData from "utils/bindingMapData";
+import Incomplete from "./components/Incomplete";
+import Complete from "./components/Complete";
+import All from "./components/All";
 
 const SideMenu = ({
     mapData,
+    allData,
     archivedMapData,
     saveDisplayMapIcons,
     dbMessages,
 }) => {
     const [menu, setMenu] = useState(0);
-
-    const allMapData = bindingMapData(mapData, archivedMapData);
 
     //検索した際に除去されたアイコンが
     //一覧ボタンを押したら元に戻るような処理
@@ -31,8 +28,8 @@ const SideMenu = ({
     };
 
     const allMapIcon = () => {
-        saveDisplayMapIcons(allMapData);
-    }
+        saveDisplayMapIcons(allData);
+    };
 
     const selectMenu = (i) => {
         if (i === 0) {
@@ -73,14 +70,12 @@ const SideMenu = ({
                         />
                     )}
                     {menu === 2 && (
-                        <All
-                            allMapData={allMapData}
-                            dbMessages={dbMessages}
-                        />
+                        <All allMapData={allData} dbMessages={dbMessages} />
                     )}
+
                     {menu === 3 && (
                         <SearchMenu
-                            mapData={mapData}
+                            mapData={allData}
                             saveDisplayMapIcons={saveDisplayMapIcons}
                             dbMessages={dbMessages}
                         />

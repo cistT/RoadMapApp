@@ -4,22 +4,25 @@ import Typography from "@mui/material/Typography";
 
 import { css } from "@emotion/react";
 
-const ProgressButtons = ({ saveProgress, mapData }) => {
+const ProgressButtons = ({ onClick, progress = 0 }) => {
     const buttons = [
         { label: "現地確認", value: 33 },
         { label: "指示", value: 66 },
         { label: "実施済", value: 100 },
     ];
-
     return (
         <>
             <Typography gutterBottom></Typography>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {buttons.map((button) => (
                     <Button
-                        onClick={() => saveProgress(mapData.id, button.value)}
+                        onClick={() => onClick(button.value, button.label)}
                         variant="outlined"
-                        css={(mapData?.progress === button.value) ? styles.blueButton : styles.whiteButton}
+                        css={
+                            progress === button.value
+                                ? styles.blueButton
+                                : styles.whiteButton
+                        }
                         key={button.label}
                     >
                         {button.label}

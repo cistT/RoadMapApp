@@ -5,6 +5,7 @@ import jaLocale from "date-fns/locale/ja";
 import { format } from "date-fns";
 
 import { css } from "@emotion/react";
+import usePostGAS from "hooks/usePostGAS";
 
 class JaLocalizedUtils extends DateFnsUtils {
     getCalendarHeaderText(date) {
@@ -16,8 +17,8 @@ class JaLocalizedUtils extends DateFnsUtils {
     }
 }
 
-const CalendarButton = () => {
-    const [date, setDate] = useState(new Date());
+const CalendarButton = ({ id, scheduled }) => {
+    const [date, setDate] = useState(scheduled || new Date());
 
     const [isUnChanged, setIsUnChanged] = useState(
         date.getFullYear === new Date().geFullYear &&
@@ -25,11 +26,15 @@ const CalendarButton = () => {
             date.getDate === new Date().getDate
     );
 
+    const { postData } = usePostGAS();
+
     const changeDateHandler = (newDate) => {
         setDate(newDate);
         setIsUnChanged(true);
-
-        // ここにgasにを更新する処
+        postData({
+            id: id,
+            date: newDate,
+        });
     };
 
     return (
@@ -39,7 +44,7 @@ const CalendarButton = () => {
                 format="yyyy年M月d日"
                 onChange={changeDateHandler}
             />
-            {isUnChanged ? (
+            {isUnChanged || scheduled ? (
                 <span css={styles.message}>確定済</span>
             ) : (
                 <span css={styles.cautionMessage}>未確定</span>

@@ -19,6 +19,8 @@ import CalendarButton from "../../components/Button/CalendarButton";
 import useDialog from "hooks/useDialog";
 import Remarks from "./components/Remarks";
 import NotCompliedProgressButton from "components/Button/NotCompliedProgressButton";
+import usePostGAS from "hooks/usePostGAS";
+import Manager from "./components/Manager";
 
 const DetailDialog = ({
     listLabel,
@@ -34,6 +36,16 @@ const DetailDialog = ({
         (contents) => !contents,
         true
     );
+
+    const { postData } = usePostGAS();
+
+    const onClickProgressButton = (value, label) => {
+        saveProgress(mapData.id, value);
+        postData({
+            id: mapData.id,
+            progress: label,
+        });
+    };
 
     return (
         <>
@@ -102,10 +114,10 @@ const DetailDialog = ({
                             <div css={styles.addressAndPerson}>
                                 <>{mapData.address}</>
                                 <span>
-                                    <span css={styles.respondentTitle}>
-                                        担当者:{" "}
-                                    </span>
-                                    {mapData.Tantousha || "未定"}
+                                    <Manager
+                                        manager={mapData?.manager || "未定"}
+                                        id={mapData.id}
+                                    />
                                 </span>
                             </div>
                             <hr css={styles.border} />
@@ -115,15 +127,14 @@ const DetailDialog = ({
                             />
                             <TextWithTitle
                                 title="市民からのメッセージ"
-                                text={mapData.remarks}
+                                text={mapData?.messages_citizens || ""}
                             />
-                            {/* ここのvalueにgasから取得した備考欄の値を渡す */}
-                            <Remarks value="かなり深い水溜りなので、なるべく早急に対処したいです" />
+                            <Remarks id={mapData.id} value={mapData.remarks} />
                         </>
                         {hideProgress || (
                             <ProgressButtons
-                                saveProgress={saveProgress}
-                                mapData={mapData}
+                                progress={mapData?.progress || 0}
+                                onClick={onClickProgressButton}
                             />
                         )}
 
@@ -136,15 +147,17 @@ const DetailDialog = ({
                         </Box>
                         {hideProgress || (
                             <NotCompliedProgressButton
-                                saveProgress={saveProgress}
-                                mapData={mapData}
+                                onClick={onClickProgressButton}
+                                progress={mapData?.progress || 0}
                                 css={styles.notComplied}
                             />
                         )}
                         <Box css={styles.down}>
                             <label css={styles.right}>予定日</label>
-                            {/* ここでgasから取得した値を渡してあげればいい？ */}
-                            <CalendarButton />
+                            <CalendarButton
+                                id={mapData.id}
+                                scheduled={mapData.scheduled}
+                            />
                         </Box>
                     </div>
                     {contents ? (
@@ -206,8 +219,10 @@ const styles = {
         justify-content: flex-end;
     `,
     addressAndPerson: css`
-        width: 38vw;
+        width: 45vw;
+        height: 50px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
         font-size: 20px;
     `,

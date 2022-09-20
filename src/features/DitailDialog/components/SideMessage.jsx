@@ -2,9 +2,6 @@ import React, { useState, useContext } from "react";
 
 import { css } from "@emotion/react";
 
-import { ListItem } from "@mui/material";
-import { ListItemText } from "@mui/material";
-
 import { ImageUrl } from "../../../page/Home";
 import SendMessage from "./SideMessage/SendMessage";
 import Images from "./SideMessage/Images";
@@ -24,21 +21,21 @@ const SideMessage = ({ mapData, dbMessages }) => {
     const [menu, setMenu] = useState(0);
     const selectMenu = (i) => setMenu(i);
 
-    const [imgs, _] = useFetchImages(imgUrl, mapData.id);
+    const [imgs] = useFetchImages(imgUrl, mapData.id);
 
     // 最新のメッセージを表示する処理（一番下にスクロール済みの状態にする）
     // https://dev.classmethod.jp/articles/react-scroll-into-view-on-load/
 
     const ref = createRef();
     const scrollToBottomOfMessages = useCallback(() => {
-        ref.current.scrollIntoView({
+        ref?.current?.scrollIntoView({
             block: "end",
         });
     }, [ref]);
 
     useEffect(() => {
         scrollToBottomOfMessages();
-    }, []);
+    }, [ref]);
 
     return (
         <div css={styles.container}>

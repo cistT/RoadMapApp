@@ -8,11 +8,18 @@ import { Button } from "@mui/material";
 import RevertButton from "../../../../components/Button/RevertButton";
 
 import useDialog from "hooks/useDialog";
+import usePostGAS from "hooks/usePostGAS";
 
 const ToIncompleteDialog = ({ mapData, onClickRevertButton }) => {
     const { open, handleOpen, handleClose } = useDialog(false);
 
+    const { post } = usePostGAS();
+
     const revertMapData = () => {
+        post({
+            id: mapData.id,
+            complete: false,
+        });
         onClickRevertButton();
         handleClose();
     };
