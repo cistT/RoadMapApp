@@ -8,6 +8,7 @@ import AllList from "./All/AllList";
 import TitleRow from "../TitleRow";
 import SelectSearchItem from "./SearchMenu/SelectSearchItem";
 import SelectSortItem from "./SearchMenu/SelectSortItem";
+import ReverseListButton from "components/Button/ReverseListButton";
 
 const All = ({ allMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
@@ -48,7 +49,15 @@ const All = ({ allMapData, dbMessages, saveDisplayMapIcons }) => {
                     />
                 </div>
             </div>
-            <TitleRow isAsc={isAsc} setIsAsc={setIsAsc} />
+            <div css={styles.titleRowContainer}>
+                <TitleRow />
+                <ReverseListButton
+                    isAsc={isAsc}
+                    setIsAsc={setIsAsc}
+                    css={styles.reverseListButton}
+                />
+            </div>
+
             {allMapData === undefined ? (
                 <div css={styles.message}>データがありません</div>
             ) : allMapData.filter((data) => data[searchItem].includes(keyword))
@@ -84,6 +93,10 @@ const styles = {
         width: 40%;
         margin-top: 5px;
         margin-right: 2%;
+    `,
+    titleRowContainer: css`
+        display: flex;
+        border-bottom: 1px solid #cecece;
     `,
     textField: css`
         justify-content: left;

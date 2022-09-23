@@ -8,6 +8,7 @@ import CompleteList from "./Complete/CompleteList";
 import TitleRow from "../TitleRow";
 import SelectSearchItem from "./SearchMenu/SelectSearchItem";
 import SelectSortItem from "./SearchMenu/SelectSortItem";
+import ReverseListButton from "components/Button/ReverseListButton";
 
 const Complete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
@@ -50,7 +51,15 @@ const Complete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
                     />
                 </div>
             </div>
-            <TitleRow isAsc={isAsc} setIsAsc={setIsAsc} />
+            <div css={styles.titleRowContainer}>
+                <TitleRow />
+                <ReverseListButton
+                    isAsc={isAsc}
+                    setIsAsc={setIsAsc}
+                    css={styles.reverseListButton}
+                />
+            </div>
+
             {archivedMapData.length === 0 ? (
                 <div css={styles.message}>完了のデータがありません</div>
             ) : archivedMapData.filter((data) =>
@@ -87,6 +96,10 @@ const styles = {
         width: 40%;
         margin-top: 5px;
         margin-right: 2%;
+    `,
+    titleRowContainer: css`
+        display: flex;
+        border-bottom: 1px solid #cecece;
     `,
     textField: css`
         justify-content: left;
