@@ -61,16 +61,25 @@ const SideMenu = ({
                     <MenuBar menu={menu} selectMenu={selectMenu} />
 
                     {menu === 0 && (
-                        <Incomplete mapData={mapData} dbMessages={dbMessages} />
+                        <Incomplete
+                            mapData={mapData}
+                            dbMessages={dbMessages}
+                            saveDisplayMapIcons={saveDisplayMapIcons}
+                        />
                     )}
                     {menu === 1 && (
                         <Complete
                             archivedMapData={archivedMapData}
                             dbMessages={dbMessages}
+                            saveDisplayMapIcons={saveDisplayMapIcons}
                         />
                     )}
                     {menu === 2 && (
-                        <All allMapData={allData} dbMessages={dbMessages} />
+                        <All
+                            allMapData={allData}
+                            dbMessages={dbMessages}
+                            saveDisplayMapIcons={saveDisplayMapIcons}
+                        />
                     )}
 
                     {menu === 3 && (

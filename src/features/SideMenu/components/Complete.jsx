@@ -6,11 +6,18 @@ import { TextField } from "@mui/material";
 
 import CompleteList from "./Complete/CompleteList";
 
-const Incomplete = ({ archivedMapData, dbMessages }) => {
+const Incomplete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
+
+    const changeMapIcons = (newKeyword) => {
+        saveDisplayMapIcons(
+            archivedMapData.filter((data) => data.respondent_name.includes(newKeyword))
+        );
+    };
 
     const handleChange = (e) => {
         const newKeyword = e.target.value;
+        changeMapIcons(newKeyword);
         setKeyword(newKeyword);
     };
 
@@ -28,8 +35,8 @@ const Incomplete = ({ archivedMapData, dbMessages }) => {
             {archivedMapData.length === 0 ? (
                 <div css={styles.message}>完了のデータがありません</div>
             ) : archivedMapData.filter((data) =>
-                  data.respondent_name.includes(keyword)
-              ).length !== 0 ? (
+                data.respondent_name.includes(keyword)
+            ).length !== 0 ? (
                 <CompleteList
                     archivedMapData={archivedMapData.filter((data) =>
                         data.respondent_name.includes(keyword)

@@ -6,11 +6,18 @@ import { TextField } from "@mui/material";
 
 import MapList from "./Incomplete/MapList";
 
-const Complete = ({ mapData, dbMessages }) => {
+const Complete = ({ mapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
+
+    const changeMapIcons = (newKeyword) => {
+        saveDisplayMapIcons(
+            mapData.filter((data) => data.respondent_name.includes(newKeyword))
+        );
+    };
 
     const handleChange = (e) => {
         const newKeyword = e.target.value;
+        changeMapIcons(newKeyword);
         setKeyword(newKeyword);
     };
 
