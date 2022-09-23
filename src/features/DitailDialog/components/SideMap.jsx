@@ -50,8 +50,8 @@ const SideMap = ({ mapData }) => {
                         //進捗度に応じて、ピンの色を変更
                         mapData.progress === 100
                             ? CompleteIcon
-                            : // 進捗度が0であることは現状ないため、一旦null?の反転で実装
-                            !mapData.progress && beforeOneMonth < now
+                            : mapData.progress === 0 &&
+                              beforeOneMonth > new Date(mapData.timestamp)
                             ? alertIcon
                             : IncompleteIcon
                     }
