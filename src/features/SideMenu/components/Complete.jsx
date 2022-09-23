@@ -6,13 +6,18 @@ import { TextField } from "@mui/material";
 
 import CompleteList from "./Complete/CompleteList";
 import TitleRow from "../TitleRow";
+import SelectSearchItem from "./SearchMenu/SelectSearchItem";
+import SelectSortItem from "./SearchMenu/SelectSortItem";
 
-const Incomplete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
+const Complete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
+    const [searchItem, setSearchItem] = useState("respondent_name");
 
     const changeMapIcons = (newKeyword) => {
         saveDisplayMapIcons(
-            archivedMapData.filter((data) => data.respondent_name.includes(newKeyword))
+            archivedMapData.filter((data) =>
+                data[searchItem].includes(newKeyword)
+            )
         );
     };
 
@@ -24,24 +29,31 @@ const Incomplete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
 
     return (
         <>
-            <TextField
-                id="field"
-                variant="outlined"
-                label="検索"
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                css={styles.textField}
-            />
+            <div css={styles.searchContainer}>
+                <TextField
+                    id="field"
+                    variant="outlined"
+                    label="検索"
+                    onChange={(e) => {
+                        handleChange(e);
+                    }}
+                    css={styles.textField}
+                />
+                <div css={styles.buttons}>
+                    <SelectSearchItem setSearchItem={setSearchItem} />
+                    {/* TODO: 並び替え機能 */}
+                    <SelectSortItem />
+                </div>
+            </div>
             <TitleRow />
             {archivedMapData.length === 0 ? (
                 <div css={styles.message}>完了のデータがありません</div>
             ) : archivedMapData.filter((data) =>
-                data.respondent_name.includes(keyword)
-            ).length !== 0 ? (
+                  data[searchItem].includes(keyword)
+              ).length !== 0 ? (
                 <CompleteList
                     archivedMapData={archivedMapData.filter((data) =>
-                        data.respondent_name.includes(keyword)
+                        data[searchItem].includes(keyword)
                     )}
                     dbMessages={dbMessages}
                 />
@@ -53,10 +65,18 @@ const Incomplete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
 };
 
 const styles = {
+    searchContainer: css`
+        display: flex;
+    `,
+    buttons: css`
+        width: 40%;
+        margin-top: 5px;
+        margin-right: 2%;
+    `,
     textField: css`
-        justify-content: center;
-        width: 90%;
-        margin: 5px 5% 0;
+        justify-content: left;
+        width: 70%;
+        margin: 5px 2% 0;
     `,
     message: css`
         text-align: center;
@@ -64,4 +84,4 @@ const styles = {
     `,
 };
 
-export default Incomplete;
+export default Complete;

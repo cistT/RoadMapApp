@@ -2,7 +2,6 @@ import CloseButton from "components/Button/CloseButton";
 import OpenButton from "components/Button/OpenButton";
 import { useState } from "react";
 import MenuBar from "./components/MenuBar";
-import SearchMenu from "./components/SearchMenu/SearchMenu";
 import Incomplete from "./components/Incomplete";
 import Complete from "./components/Complete";
 import All from "./components/All";
@@ -38,8 +37,6 @@ const SideMenu = ({
             archivedMapIcon();
         } else if (i === 2) {
             allMapIcon();
-        } else if (i === 3) {
-            //
         }
         setMenu(i);
     };
@@ -79,14 +76,6 @@ const SideMenu = ({
                             allMapData={allData}
                             dbMessages={dbMessages}
                             saveDisplayMapIcons={saveDisplayMapIcons}
-                        />
-                    )}
-
-                    {menu === 3 && (
-                        <SearchMenu
-                            mapData={allData}
-                            saveDisplayMapIcons={saveDisplayMapIcons}
-                            dbMessages={dbMessages}
                         />
                     )}
                 </div>

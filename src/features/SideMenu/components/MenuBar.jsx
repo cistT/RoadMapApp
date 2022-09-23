@@ -22,7 +22,6 @@ const MenuBar = ({ menu, selectMenu }) => {
                 <Tab icon={<ViewListIcon />} label="未完了" />
                 <Tab icon={<ArchiveIcon />} label="完了" />
                 <Tab icon={<AutoAwesomeMotionTwoToneIcon />} label="全件表示" />
-                <Tab icon={<SearchIcon />} label="検索" />
             </Tabs>
         </>
     );
