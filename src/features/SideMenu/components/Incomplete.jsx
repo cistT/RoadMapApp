@@ -12,6 +12,8 @@ import SelectSortItem from "./SearchMenu/SelectSortItem";
 const Incomplete = ({ mapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
     const [searchItem, setSearchItem] = useState("respondent_name");
+    const [sortItem, setSortItem] = useState("id");
+    const [isAsc, setIsAsc] = useState(false);
 
     const changeMapIcons = (newKeyword) => {
         saveDisplayMapIcons(
@@ -38,20 +40,33 @@ const Incomplete = ({ mapData, dbMessages, saveDisplayMapIcons }) => {
                     css={styles.textField}
                 />
                 <div css={styles.buttons}>
-                    <SelectSearchItem setSearchItem={setSearchItem}/>
-                    {/* TODO: 並び替え機能 */}
-                    <SelectSortItem />
+                    <SelectSearchItem setSearchItem={setSearchItem} />
+                    <SelectSortItem
+                        setSortItem={setSortItem}
+                        isAsc={isAsc}
+                        setIsAsc={setIsAsc}
+                    />
                 </div>
             </div>
-            <TitleRow />
+            <TitleRow isAsc={isAsc} setIsAsc={setIsAsc} />
             {mapData.length === 0 ? (
                 <div css={styles.message}>未完了のデータがありません</div>
             ) : mapData.filter((data) => data[searchItem].includes(keyword))
                   .length !== 0 ? (
                 <MapList
-                    mapData={mapData.filter((data) =>
-                        data[searchItem].includes(keyword)
-                    )}
+                    mapData={mapData
+                        .filter((data) => data[searchItem].includes(keyword))
+                        .sort((a, b) =>
+                            sortItem === "scheduled" || "timestamp"
+                                ? isAsc
+                                    ? new Date(a[sortItem]) -
+                                      new Date(b[sortItem])
+                                    : new Date(b[sortItem]) -
+                                      new Date(a[sortItem])
+                                : isAsc
+                                ? a[sortItem] - b[sortItem]
+                                : b[sortItem] - a[sortItem]
+                        )}
                     dbMessages={dbMessages}
                 />
             ) : (

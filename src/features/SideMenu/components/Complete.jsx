@@ -12,6 +12,8 @@ import SelectSortItem from "./SearchMenu/SelectSortItem";
 const Complete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
     const [searchItem, setSearchItem] = useState("respondent_name");
+    const [sortItem, setSortItem] = useState("id");
+    const [isAsc, setIsAsc] = useState(false);
 
     const changeMapIcons = (newKeyword) => {
         saveDisplayMapIcons(
@@ -41,20 +43,33 @@ const Complete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
                 />
                 <div css={styles.buttons}>
                     <SelectSearchItem setSearchItem={setSearchItem} />
-                    {/* TODO: 並び替え機能 */}
-                    <SelectSortItem />
+                    <SelectSortItem
+                        setSortItem={setSortItem}
+                        isAsc={isAsc}
+                        setIsAsc={setIsAsc}
+                    />
                 </div>
             </div>
-            <TitleRow />
+            <TitleRow isAsc={isAsc} setIsAsc={setIsAsc} />
             {archivedMapData.length === 0 ? (
                 <div css={styles.message}>完了のデータがありません</div>
             ) : archivedMapData.filter((data) =>
                   data[searchItem].includes(keyword)
               ).length !== 0 ? (
                 <CompleteList
-                    archivedMapData={archivedMapData.filter((data) =>
-                        data[searchItem].includes(keyword)
-                    )}
+                    archivedMapData={archivedMapData
+                        .filter((data) => data[searchItem].includes(keyword))
+                        .sort((a, b) =>
+                            sortItem === "scheduled" || "timestamp"
+                                ? isAsc
+                                    ? new Date(a[sortItem]) -
+                                      new Date(b[sortItem])
+                                    : new Date(b[sortItem]) -
+                                      new Date(a[sortItem])
+                                : isAsc
+                                ? a[sortItem] - b[sortItem]
+                                : b[sortItem] - a[sortItem]
+                        )}
                     dbMessages={dbMessages}
                 />
             ) : (

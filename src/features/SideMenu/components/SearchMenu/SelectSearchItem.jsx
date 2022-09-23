@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import useDialog from "hooks/useDialog";
 
-import { Button, Menu, MenuItem, ListItemIcon } from "@mui/material";
+import { Button, Menu, MenuItem, ListItemIcon, Tooltip } from "@mui/material";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import { css } from "@emotion/react";
 
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
-const SelectSearchItem = ( {setSearchItem} ) => {
+const SelectSearchItem = ({ setSearchItem }) => {
     const defaultName = { displayName: "選ぶ" };
     const searchItems = [
         { id: 0, itemName: "respondent_name", displayName: "情報提供者" },
@@ -36,19 +35,24 @@ const SelectSearchItem = ( {setSearchItem} ) => {
 
     return (
         <>
-            <Button
-                startIcon={<ManageSearchIcon />}
-                variant="outlined"
-                css={styles.button}
-                onClick={handleOpen}
-            >
-                <span css={styles.selectedItem}>
-                    {selectedItem?.displayName}
-                </span>
-            </Button>
+            <Tooltip title="検索する項目を選択" placement="right">
+                <Button
+                    startIcon={<ManageSearchIcon />}
+                    variant="outlined"
+                    css={styles.button}
+                    onClick={handleOpen}
+                >
+                    <span css={styles.selectedItem}>
+                        {selectedItem?.displayName}
+                    </span>
+                </Button>
+            </Tooltip>
             <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
                 {searchItems.map((item) => (
-                    <MenuItem onClick={() => handleClick(item.id)} key={item.id}>
+                    <MenuItem
+                        onClick={() => handleClick(item.id)}
+                        key={item.id}
+                    >
                         <ListItemIcon>
                             {item.id === selectedItem?.id ? (
                                 <RadioButtonCheckedIcon />
