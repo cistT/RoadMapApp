@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import { TextField } from "@mui/material";
 
 import AllList from "./All/AllList";
+import TitleRow from "../TitleRow";
 
 const All = ({ allMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
@@ -32,6 +33,7 @@ const All = ({ allMapData, dbMessages, saveDisplayMapIcons }) => {
                 }}
                 css={styles.textField}
             />
+            <TitleRow />
             {allMapData === undefined ? (
                 <div css={styles.message}>データがありません</div>
             ) : allMapData.filter((data) =>

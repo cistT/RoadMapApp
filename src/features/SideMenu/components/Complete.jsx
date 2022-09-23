@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import { TextField } from "@mui/material";
 
 import CompleteList from "./Complete/CompleteList";
+import TitleRow from "../TitleRow";
 
 const Incomplete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
@@ -32,6 +33,7 @@ const Incomplete = ({ archivedMapData, dbMessages, saveDisplayMapIcons }) => {
                 }}
                 css={styles.textField}
             />
+            <TitleRow />
             {archivedMapData.length === 0 ? (
                 <div css={styles.message}>完了のデータがありません</div>
             ) : archivedMapData.filter((data) =>
