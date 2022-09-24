@@ -31,7 +31,7 @@ let baseIcon = Leaflet.icon({
 
 const MoveDialog = ({ mapData, moved, setMoved }) => {
     const markerRef = useRef(null);
-    const { postData } = usePostGAS();
+    const { post } = usePostGAS();
 
     const date = new Date(mapData.timestamp);
     const now = new Date();
@@ -60,11 +60,13 @@ const MoveDialog = ({ mapData, moved, setMoved }) => {
     };
 
     const handleClick = () => {
-        postData({
+
+        post({
             id: mapData.id,
             latitude: markerPosition.lat,
             longitude: markerPosition.lng,
         });
+
         setMoved(false);
         window.location.reload();
     };
