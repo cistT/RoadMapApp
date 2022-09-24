@@ -1,4 +1,3 @@
-import { NotificationsOffOutlined } from "@material-ui/icons";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
@@ -35,8 +34,8 @@ const ProgressButtons = ({ onClick, progress = 0 }) => {
 
 const styles = {
     blueButton: css`
+        width: 30%;
         height: 30px;
-        width: 110px;
         margin: 5px 5px 0 5px;
         background: blue;
         color: white;
@@ -46,7 +45,7 @@ const styles = {
     `,
     whiteButton: css`
         height: 30px;
-        width: 110px;
+        width: 30%;
         margin: 5px 5px 0 5px;
         color: blue;
     `,

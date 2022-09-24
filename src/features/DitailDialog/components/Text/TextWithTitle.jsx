@@ -1,7 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-//ToDo コンポーネント名を考え直す
 const TextWithTitle = ({ title, text = "" }) => {
     return (
         <>
@@ -14,7 +13,6 @@ const TextWithTitle = ({ title, text = "" }) => {
 };
 
 const styleflame = css`
-    width: 35vw;
     border: 0.5px dashed black;
     margin: 10px 10px 10px 0px;
     padding: 5px;
@@ -23,7 +21,7 @@ const styletitle = css`
     font-size: 12px;
     color: black;
     font-weight: normal;
-    marginbottom: 5px;
+    margin-bottom: 5px;
 `;
 const styletext = css`
     width: 80%;

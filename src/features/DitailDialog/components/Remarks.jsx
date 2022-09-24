@@ -39,7 +39,7 @@ const Remarks = ({ id, value }) => {
                 value={remarksValue}
                 id="filled-multiline-flexible"
                 multiline
-                rows={4}
+                rows={3}
                 maxRows={15}
                 variant="outlined"
                 onChange={(e) => handleChange(e)}
@@ -75,10 +75,12 @@ const styles = {
     `,
     container: css`
         display: flex;
+        align-items: center;
     `,
     buttonContainer: css`
         text-align: center;
         margin-left: 10px;
+        margin: 0 auto;
     `,
 };
 
