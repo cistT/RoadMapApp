@@ -14,7 +14,7 @@ const Incomplete = ({ mapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
     const [searchItem, setSearchItem] = useState("respondent_name");
     const [sortItem, setSortItem] = useState("id");
-    const [isAsc, setIsAsc] = useState(false);
+    const [isAsc, setIsAsc] = useState(true);
 
     const changeMapIcons = (newKeyword) => {
         saveDisplayMapIcons(
