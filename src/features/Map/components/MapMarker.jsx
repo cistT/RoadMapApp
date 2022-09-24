@@ -39,7 +39,7 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
             css={styles.leaflet}
             icon={
                 //進捗度に応じて、ピンの色を変更
-                mapData.progress === 100
+                mapData.progress === 99.9 || mapData.progress === 100
                     ? CompleteIcon
                     : mapData.progress === 0 && beforeOneMonth > date
                     ? alertIcon

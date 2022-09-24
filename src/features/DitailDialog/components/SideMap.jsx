@@ -49,7 +49,7 @@ const SideMap = ({ mapData }) => {
                     position={[mapData.latitude, mapData.longitude]}
                     icon={
                         //進捗度に応じて、ピンの色を変更
-                        mapData.progress === 100
+                        mapData.progress === 99.9 || mapData.progress === 100
                             ? CompleteIcon
                             : mapData.progress === 0 && beforeOneMonth > date
                             ? alertIcon
@@ -73,9 +73,7 @@ const SideMap = ({ mapData }) => {
                 >
                     GoogleMapで確認
                 </Button>
-                <MovedButton
-                    mapData={mapData}
-                />
+                <MovedButton mapData={mapData} />
             </div>
         </div>
     );
@@ -104,7 +102,7 @@ const styles = {
         display: flex;
         justify-content: space-between;
         width: 100%;
-    `
+    `,
 };
 
 export default SideMap;

@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { css } from "@emotion/react";
 
 const NotCompliedProgressButton = ({ onClick, progress = -100 }) => {
-    const button = { label: "未実施", value: 100 };
+    const button = { label: "未実施", value: 99.9 };
 
     return (
         <>

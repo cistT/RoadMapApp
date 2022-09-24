@@ -60,7 +60,6 @@ const MoveDialog = ({ mapData, moved, setMoved }) => {
     };
 
     const handleClick = () => {
-
         post({
             id: mapData.id,
             latitude: markerPosition.lat,
@@ -113,6 +112,7 @@ const MoveDialog = ({ mapData, moved, setMoved }) => {
                         position={markerPosition}
                         icon={
                             //進捗度に応じて、ピンの色を変更
+                            mapData.progress === 99.9 ||
                             mapData.progress === 100
                                 ? CompleteIcon
                                 : mapData.progress === 0 &&
