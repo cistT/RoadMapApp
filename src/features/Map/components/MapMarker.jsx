@@ -41,8 +41,7 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
                 //進捗度に応じて、ピンの色を変更
                 mapData.progress === 100
                     ? CompleteIcon
-                    : mapData.progress === 0 &&
-                      beforeOneMonth > date
+                    : mapData.progress === 0 && beforeOneMonth > date
                     ? alertIcon
                     : IncompleteIcon
             }
@@ -75,14 +74,14 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
                             GoogleMapで確認
                         </Button>
                     </div>
+                    <DitailDialog
+                        mapData={mapData}
+                        saveProgress={saveProgress}
+                        dbMessages={dbMessages}
+                        listLabel="詳細確認"
+                        variant="outlined"
+                    />
                 </div>
-                <DitailDialog
-                    mapData={mapData}
-                    saveProgress={saveProgress}
-                    dbMessages={dbMessages}
-                    listLabel="詳細確認"
-                    variant="outlined"
-                />
             </Popup>
         </Marker>
     );
@@ -91,9 +90,9 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
 const styles = {
     popupContainer: css`
         white-space: nowrap;
-        min-width: 200px;
-        max-width: 300px;
-        height: 110px;
+        min-width: 10vw;
+        max-width: 20vw;
+        height: 15vh;
         font-size: 15px;
     `,
     googleMapButton: css`
