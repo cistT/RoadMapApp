@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import { css } from "@emotion/react";
 import { Button } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
+import MovedButton from "features/DitailDialog/components/SideMap/MovedButton";
 
 let IncompleteIcon = Leaflet.icon({
     iconUrl:
@@ -22,7 +23,7 @@ let alertIcon = Leaflet.icon({
 const SideMap = ({ mapData }) => {
     const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
 
-    const date = Date.parse(mapData.timestamp);
+    const date = new Date(mapData.timestamp);
     const now = new Date();
     const beforeOneMonth = new Date(
         now.getFullYear(),
@@ -50,8 +51,7 @@ const SideMap = ({ mapData }) => {
                         //進捗度に応じて、ピンの色を変更
                         mapData.progress === 100
                             ? CompleteIcon
-                            : mapData.progress === 0 &&
-                              beforeOneMonth > new Date(mapData.timestamp)
+                            : mapData.progress === 0 && beforeOneMonth > date
                             ? alertIcon
                             : IncompleteIcon
                     }
@@ -63,15 +63,20 @@ const SideMap = ({ mapData }) => {
                     </Tooltip>
                 </Marker>
             </MapContainer>
-            <Button
-                href={googleMapUrl}
-                target="_blank"
-                variant="outlined"
-                css={styles.googleMapButton}
-                startIcon={<GoogleIcon />}
-            >
-                GoogleMapで確認
-            </Button>
+            <div css={styles.buttonsContainer}>
+                <Button
+                    href={googleMapUrl}
+                    target="_blank"
+                    variant="contained"
+                    css={styles.googleMapButton}
+                    startIcon={<GoogleIcon />}
+                >
+                    GoogleMapで確認
+                </Button>
+                <MovedButton
+                    mapData={mapData}
+                />
+            </div>
         </div>
     );
 };
@@ -86,13 +91,20 @@ const styles = {
         width: 40vw;
     `,
     googleMapButton: css`
-        color: black;
+        color: white;
         text-transform: none;
-        margin: 5px;
+        margin: 5px 0 5px 5px;
+        font-size: 15px;
+        width: 92%;
     `,
     tooltipContainer: css`
         font-size: 15px;
     `,
+    buttonsContainer: css`
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    `
 };
 
 export default SideMap;
