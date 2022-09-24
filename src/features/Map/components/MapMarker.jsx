@@ -25,6 +25,7 @@ let alertIcon = Leaflet.icon({
 const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
     const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
 
+    const date = new Date(mapData.timestamp);
     const now = new Date();
     const beforeOneMonth = new Date(
         now.getFullYear(),
@@ -41,7 +42,7 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
                 mapData.progress === 100
                     ? CompleteIcon
                     : mapData.progress === 0 &&
-                      beforeOneMonth > new Date(mapData.timestamp)
+                      beforeOneMonth > date
                     ? alertIcon
                     : IncompleteIcon
             }
