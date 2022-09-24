@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 import { css } from "@emotion/react";
 
-import { Button } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -21,6 +21,7 @@ import Remarks from "./components/Remarks";
 import NotCompliedProgressButton from "components/Button/NotCompliedProgressButton";
 import usePostGAS from "hooks/usePostGAS";
 import Manager from "./components/Manager";
+import { useState } from "react";
 
 const DetailDialog = ({
     listLabel,
@@ -45,6 +46,11 @@ const DetailDialog = ({
             id: mapData.id,
             progress: label,
         });
+    };
+
+    const [tab, setTab] = useState(0);
+    const switchTab = (_, tab) => {
+        setTab(tab);
     };
 
     return (
@@ -73,9 +79,19 @@ const DetailDialog = ({
 
             <Dialog open={open} onClose={handleClose} maxWidth="xl">
                 <div css={styles.header}>
-                    <h1 css={styles.titleSpace}>{mapData.place}</h1>
+                    {/* <h1 css={styles.titleSpace}>
+                        {mapData.place}
+                        <span styles={{ size: "16px" }}>{mapData.address}</span>
+                    </h1> */}
 
-                    <div css={styles.respondentSpace}>
+                    <div>
+                        <h2 css={styles.titleSpace}> {mapData.place}</h2>
+                        <span css={styles.addressSpace}>
+                            (住所 : {mapData.address})
+                        </span>
+                    </div>
+
+                    {/* <div css={styles.respondentSpace}>
                         <div css={styles.respondentColumn}>
                             <div css={styles.respondentTitle}>
                                 受付日:&nbsp;
@@ -96,7 +112,7 @@ const DetailDialog = ({
                             </div>
                             {mapData.respondent_address || "不明"}
                         </div>
-                    </div>
+                    </div> */}
 
                     <DialogActions>
                         <Button
@@ -111,7 +127,7 @@ const DetailDialog = ({
                 <DialogContent css={styles.body}>
                     <div css={styles.left}>
                         <>
-                            <div css={styles.addressAndPerson}>
+                            {/* <div css={styles.addressAndPerson}>
                                 <>{mapData.address}</>
                                 <span>
                                     <Manager
@@ -120,16 +136,66 @@ const DetailDialog = ({
                                     />
                                 </span>
                             </div>
-                            <hr css={styles.border} />
-                            <TextWithTitle
-                                title="大区分"
-                                text={mapData.majorDivisions}
-                            />
-                            <TextWithTitle
-                                title="市民からのメッセージ"
-                                text={mapData?.messages_citizens || ""}
-                            />
-                            <Remarks id={mapData.id} value={mapData.remarks} />
+                            <hr css={styles.border} /> */}
+                            <Tabs value={tab} onChange={switchTab} centered>
+                                <Tab label="修繕箇所の情報" />
+                                <Tab label="市民の情報" />
+                            </Tabs>
+                            <div css={styles.mainContainer}>
+                                {tab === 0 && (
+                                    <>
+                                        <TextWithTitle
+                                            title="受付日"
+                                            text={mapData.timestamp}
+                                        />
+                                        <TextWithTitle
+                                            title="大区分"
+                                            text={mapData.majorDivisions}
+                                        />
+                                        <Manager
+                                            manager={mapData?.manager || "未定"}
+                                            id={mapData.id}
+                                        />
+
+                                        <Remarks
+                                            id={mapData.id}
+                                            value={mapData.remarks}
+                                        />
+                                    </>
+                                )}
+
+                                {tab === 1 && (
+                                    <>
+                                        <TextWithTitle
+                                            title="情報提供者"
+                                            text={
+                                                mapData?.respondent_name ??
+                                                "不明"
+                                            }
+                                        />
+                                        <TextWithTitle
+                                            title="連絡先"
+                                            text={
+                                                mapData.respondent_phone_number ||
+                                                "不明"
+                                            }
+                                        />
+                                        <TextWithTitle
+                                            title="住所"
+                                            text={
+                                                mapData.respondent_address ||
+                                                "不明"
+                                            }
+                                        />
+                                        <TextWithTitle
+                                            title="市民からのメッセージ"
+                                            text={
+                                                mapData?.messages_citizens || ""
+                                            }
+                                        />
+                                    </>
+                                )}
+                            </div>
                         </>
                         {hideProgress || (
                             <ProgressButtons
@@ -182,34 +248,38 @@ const styles = {
     header: css`
         display: flex;
         height: 100px;
+        align-items: center;
         justify-content: space-between;
     `,
     body: css`
         display: flex;
         white-space: pre-line;
         padding-top: 0;
+        gap: 30px;
     `,
     left: css`
-        width: 50vw;
+        width: 45vw;
     `,
     down: css`
-        width: 80%;
         padding: 9px 0 0 0;
     `,
     right: css`
-        width: 80%;
         padding: 0 20px 0 0;
     `,
     titleSpace: css`
-        width: 40%;
-        margin: 30px 0 0 20px;
+        display: inline;
+        font-size: 30px;
+        margin: 0 20px;
+    `,
+    addressSpace: css`
+        font-size: 20px;
     `,
     respondentSpace: css`
-        padding: 37px 0 0 0;
+        /* padding: 37px 0 0 0;
         font-style: italic;
-        width: 750px;
         justify-content: flex-end;
-        font-size: 17px;
+        font-size: 17px; */
+        font-style: italic;
     `,
     respondentTitle: css`
         font-weight: bold;
@@ -242,6 +312,9 @@ const styles = {
         justify-content: space-between;
         color: black;
     `,
+    mainContainer: css`
+        min-height: 330px;
+    `,
     mapMarkerButton: css`
         justify-content: center;
         color: black;
@@ -251,7 +324,7 @@ const styles = {
         text-align: center;
     `,
     progressBar: css`
-        width: 30.5vw;
+        width: 95%;
         padding: 10px 0 0 0;
     `,
     sideContentButton: css`

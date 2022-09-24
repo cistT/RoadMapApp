@@ -32,7 +32,7 @@ const NotCompliedProgressButton = ({ onClick, progress = -100 }) => {
 const styles = {
     blueButton: css`
         height: 30px;
-        width: 110px;
+        width: 30%;
         margin: 5px;
         background: blue;
         color: white;
@@ -42,13 +42,13 @@ const styles = {
     `,
     whiteButton: css`
         height: 30px;
-        width: 110px;
+        width: 30%;
         margin: 5px;
         color: blue;
     `,
     nullButton: css`
         height: 30px;
-        width: 110px;
+        width: 30%;
         margin: 5px;
         background: white;
         color: white;
