@@ -25,6 +25,7 @@ let alertIcon = Leaflet.icon({
 const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
     const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapData.latitude},${mapData.longitude}`;
 
+    const date = new Date(mapData.timestamp);
     const now = new Date();
     const beforeOneMonth = new Date(
         now.getFullYear(),
@@ -38,10 +39,9 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
             css={styles.leaflet}
             icon={
                 //進捗度に応じて、ピンの色を変更
-                mapData.progress === 100
+                mapData.progress === 99.9 || mapData.progress === 100
                     ? CompleteIcon
-                    : // 進捗度が0であることは現状ないため、一旦null?の反転で実装
-                    !mapData.progress && beforeOneMonth < now
+                    : mapData.progress === 0 && beforeOneMonth > date
                     ? alertIcon
                     : IncompleteIcon
             }
@@ -74,14 +74,14 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
                             GoogleMapで確認
                         </Button>
                     </div>
+                    <DitailDialog
+                        mapData={mapData}
+                        saveProgress={saveProgress}
+                        dbMessages={dbMessages}
+                        listLabel="詳細確認"
+                        variant="outlined"
+                    />
                 </div>
-                <DitailDialog
-                    mapData={mapData}
-                    saveProgress={saveProgress}
-                    dbMessages={dbMessages}
-                    listLabel="詳細確認"
-                    variant="outlined"
-                />
             </Popup>
         </Marker>
     );
@@ -90,9 +90,9 @@ const MapMaker = ({ mapData, saveProgress, dbMessages }) => {
 const styles = {
     popupContainer: css`
         white-space: nowrap;
-        min-width: 200px;
-        max-width: 300px;
-        height: 110px;
+        min-width: 10vw;
+        max-width: 20vw;
+        height: 15vh;
         font-size: 15px;
     `,
     googleMapButton: css`

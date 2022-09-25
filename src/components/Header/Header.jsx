@@ -31,7 +31,6 @@ const Header = ({ title }) => {
                     {user && (
                         <div css={styles.buttonContainer}>
                             <ProfileDialog />
-                            <UsageDialog />
 
                             <Button css={styles.button} onClick={logout}>
                                 ログアウト

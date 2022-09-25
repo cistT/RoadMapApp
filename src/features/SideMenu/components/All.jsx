@@ -5,35 +5,77 @@ import { css } from "@emotion/react";
 import { TextField } from "@mui/material";
 
 import AllList from "./All/AllList";
+import TitleRow from "../TitleRow";
+import SelectSearchItem from "./SearchMenu/SelectSearchItem";
+import SelectSortItem from "./SearchMenu/SelectSortItem";
+import ReverseListButton from "components/Button/ReverseListButton";
 
-const All = ({ allMapData, dbMessages }) => {
+const All = ({ allMapData, dbMessages, saveDisplayMapIcons }) => {
     const [keyword, setKeyword] = useState("");
+    const [searchItem, setSearchItem] = useState("respondent_name");
+    const [sortItem, setSortItem] = useState("id");
+    const [isAsc, setIsAsc] = useState(true);
+
+    const changeMapIcons = (newKeyword) => {
+        saveDisplayMapIcons(
+            allMapData.filter((data) => data[searchItem].includes(newKeyword))
+        );
+    };
 
     const handleChange = (e) => {
         const newKeyword = e.target.value;
+        changeMapIcons(newKeyword);
         setKeyword(newKeyword);
     };
 
     return (
         <>
-            <TextField
-                id="field"
-                variant="outlined"
-                label="検索"
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                css={styles.textField}
-            />
+            <div css={styles.searchContainer}>
+                <TextField
+                    id="field"
+                    variant="outlined"
+                    label="検索"
+                    onChange={(e) => {
+                        handleChange(e);
+                    }}
+                    css={styles.textField}
+                />
+                <div css={styles.buttons}>
+                    <SelectSearchItem setSearchItem={setSearchItem} />
+                    <SelectSortItem
+                        setSortItem={setSortItem}
+                        isAsc={isAsc}
+                        setIsAsc={setIsAsc}
+                    />
+                </div>
+            </div>
+            <div css={styles.titleRowContainer}>
+                <TitleRow />
+                <ReverseListButton
+                    isAsc={isAsc}
+                    setIsAsc={setIsAsc}
+                    css={styles.reverseListButton}
+                />
+            </div>
+
             {allMapData === undefined ? (
                 <div css={styles.message}>データがありません</div>
-            ) : allMapData.filter((data) =>
-                  data.respondent_name.includes(keyword)
-              ).length !== 0 ? (
+            ) : allMapData.filter((data) => data[searchItem].includes(keyword))
+                  .length !== 0 ? (
                 <AllList
-                    allMapData={allMapData.filter((data) =>
-                        data.respondent_name.includes(keyword)
-                    )}
+                    allMapData={allMapData
+                        .filter((data) => data[searchItem].includes(keyword))
+                        .sort((a, b) =>
+                            sortItem === "scheduled" || "timestamp"
+                                ? isAsc
+                                    ? new Date(a[sortItem]) -
+                                      new Date(b[sortItem])
+                                    : new Date(b[sortItem]) -
+                                      new Date(a[sortItem])
+                                : isAsc
+                                ? a[sortItem] - b[sortItem]
+                                : b[sortItem] - a[sortItem]
+                        )}
                     dbMessages={dbMessages}
                 />
             ) : (
@@ -44,10 +86,22 @@ const All = ({ allMapData, dbMessages }) => {
 };
 
 const styles = {
+    searchContainer: css`
+        display: flex;
+    `,
+    buttons: css`
+        width: 40%;
+        margin-top: 5px;
+        margin-right: 2%;
+    `,
+    titleRowContainer: css`
+        display: flex;
+        border-bottom: 1px solid #cecece;
+    `,
     textField: css`
-        justify-content: center;
-        width: 90%;
-        margin: 5px 5% 0;
+        justify-content: left;
+        width: 70%;
+        margin: 5px 2% 0;
     `,
     message: css`
         text-align: center;

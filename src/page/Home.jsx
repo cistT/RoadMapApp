@@ -19,7 +19,6 @@ export const RevertArchive = createContext();
 export const ImageUrl = createContext();
 export const ChangeManager = createContext();
 
-//URLさえわかれば、だれでも情報の書き換えができてしまうのでログイン機能の実装が必要
 const Home = () => {
     //プロップスリレーが生じていたのでuseContextで実装した
 
@@ -112,7 +111,7 @@ const Home = () => {
             setMapData(json.filter((data) => data.complete !== true));
             setArchivedMapData(json.filter((data) => data.complete === true));
             setLoad(false);
-            setDisplayMapIcons(json);
+            setDisplayMapIcons(json.filter((data) => data.complete !== true));
             setAllData(json);
         })();
     }, []);

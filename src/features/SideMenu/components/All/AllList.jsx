@@ -23,7 +23,7 @@ const AllList = ({allMapData, dbMessages }) => {
                 }}
             >
                 {allMapData.map((data) => (
-                    data.id ? (
+                    data.complete ? (
                         <CompleteListItem
                             saveDisplayMapIcons={() =>
                                 saveDisplayMapIcons(
